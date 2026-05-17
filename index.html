@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/home.css">
+    <script src="https://kit.fontawesome.com/586da91eec.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <header class="header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="assets/images/BMH.png" alt="BMH Logo" height="35">
+                </a>
+                <button class="navbar-toggler" type="button" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+                <div class="navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#facilities">Facilities</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#specialties">Specialties</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#gallery">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#events">Events</a>
+                        </li>
+                    </ul>
+                    <!-- Mobile Drawer Appointment Button (Full Width) -->
+                    <div class="d-lg-none w-100 mt-auto pt-3 mb-5">
+                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
+                            data-bs-target="#appointmentModal">
+                            Appointment <i class="fa-solid fa-arrow-right me-0 ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Desktop Header Appointment Button (Far Right End of Container) -->
+                <div class="d-none d-lg-flex align-items-center ms-3">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#appointmentModal">
+                        Appointment <i class="fa-solid fa-arrow-right me-0 ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <section class="hero-section">
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6000">
+
+            <!-- Carousel Slides -->
+            <div class="carousel-inner">
+                <!-- Slide 1: World-Class Healthcare -->
+                <div class="carousel-item active" style="background-image: url('assets/images/hero_lobby.png');">
+                    <div class="hero-overlay"></div>
+                    <div class="container h-100 position-relative">
+                        <div class="carousel-caption hero-caption">
+                            <span class="hero-subtitle mb-2 d-inline-block">Welcome to BMH Hospital</span>
+                            <h1 class="ttl-h1 hero-title mb-3">World-Class Healthcare with a Compassionate Touch</h1>
+                            <p class="hero-text mb-4">Dedicated to providing exceptional patient-centered care through
+                                ultra-modern facilities, renowned medical experts, and state-of-the-art healing
+                                environments.</p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2: Surgical Excellence -->
+                <div class="carousel-item" style="background-image: url('assets/images/hero_surgery.png');">
+                    <div class="hero-overlay"></div>
+                    <div class="container h-100 position-relative">
+                        <div class="carousel-caption hero-caption">
+                            <span class="hero-subtitle mb-2 d-inline-block">Pioneering Innovation</span>
+                            <h1 class="ttl-h1 hero-title mb-3">State-of-the-Art Medical Technology & Robotics</h1>
+                            <p class="hero-text mb-4">Equipped with hybrid operation theatres, advanced 3D diagnostics,
+                                and robotic surgery suites that guarantee accuracy, speed, and faster recovery.</p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3: 24/7 Trauma Care -->
+                <div class="carousel-item" style="background-image: url('assets/images/hero_emergency.png');">
+                    <div class="hero-overlay"></div>
+                    <div class="container h-100 position-relative">
+                        <div class="carousel-caption hero-caption">
+                            <span class="hero-subtitle mb-2 d-inline-block">24/7 Emergency Care</span>
+                            <h1 class="ttl-h1 hero-title mb-3">Every Second Counts. Every Life Matters.</h1>
+                            <p class="hero-text mb-4">Our dedicated level-1 trauma team, cutting-edge ICU beds, and
+                                rapid cardiac ambulance dispatch are fully prepared to rescue lives 24 hours a day, 365
+                                days a year.</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Glassmorphic Navigation Buttons -->
+            <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#heroCarousel"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#heroCarousel"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Left Column: Figure with Aspect Ratio -->
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <div class="about-image-container">
+                        <figure class="about-image-wrapper">
+                            <img src="assets/images/images.jpeg" alt="BMH Perumbavoor Hospital Building">
+                        </figure>
+                    </div>
+                </div>
+
+                <!-- Right Column: Content -->
+                <div class="col-lg-7 ps-lg-4">
+                    <div class="about-content">
+                        <div class="about-tag mb-3 d-inline-flex align-items-center">
+                            <i class="fa-solid fa-hospital me-2 text-primary"></i>
+                            <span>Overview</span>
+                        </div>
+                        <h2 class="ttl-h2 about-title mb-3 lg:mb-4">About BMH Perumbavoor</h2>
+
+                        <p class="about-lead mb-3">BMH Perumbavoor is a modern multi-speciality healthcare destination
+                            committed to delivering high-quality medical care with compassion, innovation, and clinical
+                            excellence. Designed to serve the growing healthcare needs of Perumbavoor and surrounding
+                            communities, the hospital combines advanced medical infrastructure with patient-centered
+                            care.</p>
+
+                        <p class="about-lead mb-0">With a strong focus on safety, comfort, and medical excellence, BMH
+                            Perumbavoor offers comprehensive healthcare services across key specialties supported by
+                            experienced doctors, trained nursing professionals, and advanced diagnostic facilities. The
+                            hospital is built to ensure faster access to quality healthcare while maintaining the
+                            trusted standards and legacy associated with the BMH healthcare network.</p>
+
+
+                        <!-- About Stats Panel -->
+                        <div class="about-stats-row d-flex flex-wrap align-items-center gap-4 mt-5">
+                            <div class="stat-item d-flex align-items-center gap-3">
+                                <div class="stat-number-wrapper">
+                                    <span class="stat-number" data-target="15">0</span><span class="stat-plus">+</span>
+                                </div>
+                                <div class="stat-label text-muted">Medical<br>Specialties</div>
+                            </div>
+                            <div class="stat-divider d-none d-md-block"></div>
+                            <div class="stat-item d-flex align-items-center gap-3">
+                                <div class="stat-number-wrapper">
+                                    <span class="stat-number" data-target="50">0</span><span class="stat-plus">+</span>
+                                </div>
+                                <div class="stat-label text-muted">Specialist<br>Doctors</div>
+                            </div>
+                            <div class="stat-divider d-none d-md-block"></div>
+                            <div class="stat-item d-flex align-items-center gap-3">
+                                <div class="stat-number-wrapper">
+                                    <span class="stat-number" data-target="100">0</span><span class="stat-plus">+</span>
+                                </div>
+                                <div class="stat-label text-muted">Hospital<br>Beds</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section class="facilities-section">
+        <div class="container">
+            <!-- Section Header -->
+            <div class="row mb-4 lg:mb-5">
+                <div
+                    class="col-12 text-center text-lg-start d-flex flex-column align-items-center align-items-lg-start">
+                    <div class="facilities-tag mb-3 d-inline-flex align-items-center">
+                        <i class="fa-solid fa-layer-group me-2"></i>
+                        <span>Infrastructure</span>
+                    </div>
+                    <h2 class="ttl-h2 facilities-title">World-Class Facilities</h2>
+                    <p class="facilities-subtitle">BMH Perumbavoor is equipped with cutting-edge clinical
+                        infrastructure built to modern international standards, ensuring swift medical intervention and
+                        patient comfort.</p>
+                </div>
+            </div>
+
+            <!-- Swiper Carousel -->
+            <div class="swiper facilities-swiper pb-5">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1: LINAC -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/hero_surgery.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Radiotherapy</span>
+                                <h3 class="facility-card-title ttl-h3">LINAC</h3>
+                                <p class="facility-card-text">Advanced external beam radiation treatments targeting
+                                    cancer cells with pinpoint accuracy.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: BRACHY -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/hero_surgery.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Radiotherapy</span>
+                                <h3 class="facility-card-title ttl-h3">BRACHY</h3>
+                                <p class="facility-card-text">Precision internal radiation therapy placing radioactive
+                                    sources directly inside or near the tumor.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: PET CT -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/facility_scanner.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Nuclear Medicine</span>
+                                <h3 class="facility-card-title ttl-h3">PET CT</h3>
+                                <p class="facility-card-text">State-of-the-art metabolic and anatomical scanning for
+                                    precise cancer staging and heart diagnostics.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: SPECT CT -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/facility_scanner.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Nuclear Medicine</span>
+                                <h3 class="facility-card-title ttl-h3">SPECT CT</h3>
+                                <p class="facility-card-text">High-resolution single-photon emission computed tomography
+                                    for clear functional tissue analysis.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: Blood Bank -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/images.jpeg');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Critical Support</span>
+                                <h3 class="facility-card-title ttl-h3">Blood Bank</h3>
+                                <p class="facility-card-text">24/7 licensed blood transfusion center with advanced
+                                    component separation and storage.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 6: Lab -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/images.jpeg');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Pathology</span>
+                                <h3 class="facility-card-title ttl-h3">Clinical Laboratory</h3>
+                                <p class="facility-card-text">Automated, high-throughput testing laboratory for precise
+                                    and rapid biochemical profiling.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 7: CT -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/facility_scanner.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Diagnostics</span>
+                                <h3 class="facility-card-title ttl-h3">CT Scan</h3>
+                                <p class="facility-card-text">Ultra-fast multi-slice CT scanning providing
+                                    high-definition cross-sectional body views.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 8: MRI -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/facility_scanner.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Diagnostics</span>
+                                <h3 class="facility-card-title ttl-h3">MRI Scan</h3>
+                                <p class="facility-card-text">High-field MRI scanner offering detailed soft-tissue
+                                    imaging without radiation.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 9: X-RAY -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/facility_scanner.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Diagnostics</span>
+                                <h3 class="facility-card-title ttl-h3">Digital X-Ray</h3>
+                                <p class="facility-card-text">Low-dose digital radiography for immediate,
+                                    high-resolution chest and bone imaging.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 10: USG -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/facility_scanner.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Diagnostics</span>
+                                <h3 class="facility-card-title ttl-h3">Ultrasonography (USG)</h3>
+                                <p class="facility-card-text">High-end 3D/4D color doppler ultrasound for abdominal,
+                                    obstetrics, and cardiac scans.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 11: BMD -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/facility_scanner.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Preventive Care</span>
+                                <h3 class="facility-card-title ttl-h3">BMD (DEXA Scan)</h3>
+                                <p class="facility-card-text">Advanced DEXA scan for accurate bone density evaluation
+                                    and early osteoporosis screening.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 12: MAMMO -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/facility_scanner.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Women's Health</span>
+                                <h3 class="facility-card-title ttl-h3">Mammography</h3>
+                                <p class="facility-card-text">Digital breast imaging systems with high-resolution
+                                    sensors for early cancer screening.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 13: OPG -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/about_hospital.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Dental Imaging</span>
+                                <h3 class="facility-card-title ttl-h3">OPG X-Ray</h3>
+                                <p class="facility-card-text">Wide-view dental digital X-Ray capturing the complete
+                                    upper and lower jaw and teeth in 2D.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 14: ECG -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/hero_emergency.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Cardiac Care</span>
+                                <h3 class="facility-card-title ttl-h3">ECG</h3>
+                                <p class="facility-card-text">Digital multi-channel electrocardiograms mapping cardiac
+                                    electrical activity in seconds.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 15: TMT -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/hero_emergency.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Cardiac Care</span>
+                                <h3 class="facility-card-title ttl-h3">TMT (Treadmill Test)</h3>
+                                <p class="facility-card-text">Stress electrocardiography system to evaluate coronary
+                                    arterial health under active workload.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 16: ECHO -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/hero_emergency.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Cardiac Care</span>
+                                <h3 class="facility-card-title ttl-h3">Echocardiography (ECHO)</h3>
+                                <p class="facility-card-text">Advanced color doppler echocardiography tracking cardiac
+                                    wall movement and blood flow.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 17: Urodynamic Lab -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/images.jpeg');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Nephro-Urology</span>
+                                <h3 class="facility-card-title ttl-h3">Urodynamic Lab</h3>
+                                <p class="facility-card-text">Specialized testing unit diagnosing complex bladder
+                                    functions and urinary tract symptoms.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 18: Neuro Lab -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/images.jpeg');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Neurology</span>
+                                <h3 class="facility-card-title ttl-h3">Neuro Lab</h3>
+                                <p class="facility-card-text">Advanced EEG, EMG, and nerve conduction studies mapping
+                                    central nervous systems.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 19: Endoscopy -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/hero_surgery.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Gastroenterology</span>
+                                <h3 class="facility-card-title ttl-h3">Endoscopy Suite</h3>
+                                <p class="facility-card-text">Flexible video-endoscopy for comprehensive
+                                    gastrointestinal mapping and biopsies.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 20: ERCP -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/hero_surgery.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Gastroenterology</span>
+                                <h3 class="facility-card-title ttl-h3">ERCP Suite</h3>
+                                <p class="facility-card-text">Specialized retrograde cholangiopancreatography managing
+                                    complex biliary disorders.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 21: Cosmetic Laser -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/about_hospital.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Dermatology</span>
+                                <h3 class="facility-card-title ttl-h3">Cosmetic Laser</h3>
+                                <p class="facility-card-text">US-FDA approved aesthetic laser systems for precise skin
+                                    rejuvenation and scar treatment.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 22: Audiometry -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/hero_lobby.png');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">ENT Diagnostic</span>
+                                <h3 class="facility-card-title ttl-h3">Audiometry Lab</h3>
+                                <p class="facility-card-text">Calibrated pure-tone and impedance audiometry chambers
+                                    evaluating hearing thresholds.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 23: IVF Lab -->
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('assets/images/images.jpeg');">
+                            <div class="facility-content">
+                                <span class="facility-tag mb-2">Reproductive Med</span>
+                                <h3 class="facility-card-title ttl-h3">IVF Lab</h3>
+                                <p class="facility-card-text">Highly sterile cleanroom environment with
+                                    micromanipulators for advanced embryology care.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Swiper Navigation & Pagination -->
+                <div class="swiper-pagination facilities-pagination mt-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialties Section -->
+    <section class="specialties-section py-5" id="specialties">
+        <div class="container">
+
+            <!-- Section Header -->
+            <div class="row mb-5 text-center text-lg-start">
+                <div class="col-lg-7">
+                    <div class="specialties-tag mb-3 d-inline-flex align-items-center">
+                        <i class="fa-solid fa-star me-2"></i>
+                        <span>Centers of Excellence</span>
+                    </div>
+                    <h2 class="ttl-h2 font-montserrat fw-extrabold text-slate-800">Our Specialities</h2>
+                    <p class="specialties-subtitle text-muted lead mb-0">
+                        Specialized healthcare services across multiple medical disciplines supported by experienced
+                        consultants.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Specialties Carousel (Unified for Desktop and Mobile) -->
+            <div class="position-relative">
+                <div class="swiper specialties-swiper">
+                    <div class="swiper-wrapper">
+
+                        <!-- Slide 1: Cardiology -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg"
+                                    style="background-image: url('assets/images/specialty_cardiology.png');"></div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Cardiology</h4>
+                                    <p class="bento-card-text">Comprehensive cardiac care including preventive
+                                        cardiology, diagnosis, and advanced treatment procedures.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2: Orthopaedics -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg"
+                                    style="background-image: url('assets/images/specialty_orthopaedics.png');"></div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Orthopaedics</h4>
+                                    <p class="bento-card-text">Advanced orthopaedic care for bone, joint, spine, trauma,
+                                        and sports injury management.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3: General Medicine -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg"
+                                    style="background-image: url('assets/images/about_hospital.png');"></div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">General Medicine</h4>
+                                    <p class="bento-card-text">Comprehensive medical evaluation for acute and chronic
+                                        conditions.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 4: Paediatrics -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg"
+                                    style="background-image: url('assets/images/hero_lobby.png');"></div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Paediatrics</h4>
+                                    <p class="bento-card-text">Compassionate healthcare services dedicated to infants
+                                        and children.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 5: Neurology -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg"
+                                    style="background-image: url('assets/images/specialty_neurology.png');"></div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Neurology</h4>
+                                    <p class="bento-card-text">Specialized care for disorders affecting the brain,
+                                        spine, and nervous system.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 6: Obstetrics & Gynaecology -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg" style="background-image: url('assets/images/images.jpeg');">
+                                </div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Obstetrics & Gynaecology</h4>
+                                    <p class="bento-card-text">Comprehensive women's healthcare with advanced maternity
+                                        and gynecological care.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 7: Pulmonology -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg"
+                                    style="background-image: url('assets/images/about_hospital.png');"></div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Pulmonology</h4>
+                                    <p class="bento-card-text">Expert respiratory care for lung and breathing-related
+                                        conditions.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 8: Neurosurgery & Spine -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg"
+                                    style="background-image: url('assets/images/hero_surgery.png');"></div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Neurosurgery & Spine</h4>
+                                    <p class="bento-card-text">Micro-precision surgical treatments for complex brain and
+                                        spinal disorders.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 9: Urology -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg"
+                                    style="background-image: url('assets/images/facility_scanner.png');"></div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Urology</h4>
+                                    <p class="bento-card-text">Advanced clinical diagnosis and care for urinary tract
+                                        and renal conditions.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 10: Oncology -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg"
+                                    style="background-image: url('assets/images/specialty_oncology.png');"></div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Oncology</h4>
+                                    <p class="bento-card-text">State-of-the-art cancer screening, diagnosis,
+                                        chemotherapy, and target treatments.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 11: Gastroenterology -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg" style="background-image: url('assets/images/images.jpeg');">
+                                </div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Gastroenterology</h4>
+                                    <p class="bento-card-text">Advanced digestive tract evaluations, digital endoscopy,
+                                        and liver care.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 12: Dermatology -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg"
+                                    style="background-image: url('assets/images/about_hospital.png');"></div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Dermatology</h4>
+                                    <p class="bento-card-text">Advanced clinical skincare, customized aesthetics, and
+                                        laser procedures.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 13: Emergency Medicine -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg"
+                                    style="background-image: url('assets/images/hero_emergency.png');"></div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Emergency Medicine</h4>
+                                    <p class="bento-card-text">24/7 Level-1 trauma response and golden-hour critical
+                                        care by emergency specialists.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 14: Critical Care -->
+                        <div class="swiper-slide">
+                            <div class="bento-card h-100">
+                                <div class="bento-card-bg"
+                                    style="background-image: url('assets/images/hero_surgery.png');"></div>
+                                <div class="bento-card-body">
+                                    <h4 class="bento-card-title ttl-h4">Critical Care</h4>
+                                    <p class="bento-card-text">Centralized telemetry, intensive round-the-clock
+                                        monitoring and ICU support led by intensivists.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 15: CTA Card -->
+                        <div class="swiper-slide">
+                            <div class="bento-card bento-card-white bento-cta-card h-100">
+                                <div class="bento-card-body d-flex flex-column justify-content-between">
+                                    <div>
+                                        <h4 class="bento-card-title ttl-h4">Need Consultation?</h4>
+                                        <p class="bento-card-text mb-4">Connect with our medical coordinators for custom
+                                            schedules and timing sheets.</p>
+                                    </div>
+                                    <a href="#contact" class="bento-cta-btn btn btn-primary w-100 rounded-pill py-2">
+                                        <i class="fa-solid fa-calendar-check me-2"></i> Book Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Navigation Arrows (Desktop only) -->
+                <div class="swiper-button-prev specialties-prev d-none d-lg-flex">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </div>
+                <div class="swiper-button-next specialties-next d-none d-lg-flex">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BMH Premium Hospital Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+
+            <!-- Section Header (Centered Layout) -->
+            <div class="row mb-5 justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="gallery-tag mb-3 d-inline-flex align-items-center">
+                        <i class="fa-solid fa-images me-2"></i>
+                        <span>Visual Showcase</span>
+                    </div>
+                    <h2 class="gallery-title ttl-h2 mb-3">Our Premium Infrastructure</h2>
+                    <p class="gallery-subtitle mx-auto mb-0">
+                        Explore the high-fidelity healing environments, ultra-modern ICU setups, high-precision
+                        operation theatres, and welcoming hospital spaces built to elevate patient comfort at BMH
+                        Perumbavoor.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Gallery Filter Controls -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="gallery-filters d-flex flex-wrap gap-2 justify-content-start justify-content-lg-center">
+                        <button class="filter-btn active" data-filter="all">All Photos</button>
+                        <button class="filter-btn" data-filter="infra">Infrastructure</button>
+                        <button class="filter-btn" data-filter="tech">Medical Tech</button>
+                        <button class="filter-btn" data-filter="rooms">Wards & Lobbies</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="row g-4 gallery-grid pt-lg-3">
+
+                <!-- Item 1: Hospital Lobby (Rooms) -->
+                <div class="col-md-6 col-lg-4 gallery-item" data-category="rooms">
+                    <div class="gallery-card">
+                        <div class="gallery-img-wrapper">
+                            <img src="assets/images/hero_lobby.png" alt="Premium Hospital Lobby" class="gallery-img" />
+                            <div class="gallery-overlay">
+                                <div class="gallery-info text-center p-3">
+                                    <span class="gallery-item-category">Wards & Lobbies</span>
+                                    <h4 class="gallery-item-title">Main Reception & Lounge</h4>
+                                    <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal"
+                                        data-bs-target="#lightboxModal" data-src="assets/images/hero_lobby.png"
+                                        data-title="Main Reception & Lounge">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: Operation Theatre (Infra) -->
+                <div class="col-md-6 col-lg-4 gallery-item" data-category="infra">
+                    <div class="gallery-card">
+                        <div class="gallery-img-wrapper">
+                            <img src="assets/images/hero_surgery.png" alt="Modular Operation Theatre"
+                                class="gallery-img" />
+                            <div class="gallery-overlay">
+                                <div class="gallery-info text-center p-3">
+                                    <span class="gallery-item-category">Infrastructure</span>
+                                    <h4 class="gallery-item-title">Advanced Surgical Suite</h4>
+                                    <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal"
+                                        data-bs-target="#lightboxModal" data-src="assets/images/hero_surgery.png"
+                                        data-title="Advanced Surgical Suite">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3: ICU/Emergency (Tech) -->
+                <div class="col-md-6 col-lg-4 gallery-item" data-category="tech">
+                    <div class="gallery-card">
+                        <div class="gallery-img-wrapper">
+                            <img src="assets/images/hero_emergency.png" alt="Critical Care Unit" class="gallery-img" />
+                            <div class="gallery-overlay">
+                                <div class="gallery-info text-center p-3">
+                                    <span class="gallery-item-category">Medical Tech</span>
+                                    <h4 class="gallery-item-title">Critical Care ICU Bed</h4>
+                                    <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal"
+                                        data-bs-target="#lightboxModal" data-src="assets/images/hero_emergency.png"
+                                        data-title="Critical Care ICU Bed">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4: CT Scanner (Tech) -->
+                <div class="col-md-6 col-lg-4 gallery-item" data-category="tech">
+                    <div class="gallery-card">
+                        <div class="gallery-img-wrapper">
+                            <img src="assets/images/facility_scanner.png" alt="Advanced Imaging Center"
+                                class="gallery-img" />
+                            <div class="gallery-overlay">
+                                <div class="gallery-info text-center p-3">
+                                    <span class="gallery-item-category">Medical Tech</span>
+                                    <h4 class="gallery-item-title">High-Resolution CT System</h4>
+                                    <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal"
+                                        data-bs-target="#lightboxModal" data-src="assets/images/facility_scanner.png"
+                                        data-title="High-Resolution CT System">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5: Hospital Building (Infra) -->
+                <div class="col-md-6 col-lg-4 gallery-item" data-category="infra">
+                    <div class="gallery-card">
+                        <div class="gallery-img-wrapper">
+                            <img src="assets/images/about_hospital.png" alt="BMH Hospital Exterior"
+                                class="gallery-img" />
+                            <div class="gallery-overlay">
+                                <div class="gallery-info text-center p-3">
+                                    <span class="gallery-item-category">Infrastructure</span>
+                                    <h4 class="gallery-item-title">Main Campus Facade</h4>
+                                    <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal"
+                                        data-bs-target="#lightboxModal" data-src="assets/images/about_hospital.png"
+                                        data-title="Main Campus Facade">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 6: Executive Patient Suite (Rooms) -->
+                <div class="col-md-6 col-lg-4 gallery-item" data-category="rooms">
+                    <div class="gallery-card">
+                        <div class="gallery-img-wrapper">
+                            <img src="assets/images/hero_lobby.png" alt="Executive Patient Suite" class="gallery-img"
+                                style="filter: hue-rotate(45deg);" />
+                            <div class="gallery-overlay">
+                                <div class="gallery-info text-center p-3">
+                                    <span class="gallery-item-category">Wards & Lobbies</span>
+                                    <h4 class="gallery-item-title">Executive Patient Room</h4>
+                                    <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal"
+                                        data-bs-target="#lightboxModal" data-src="assets/images/hero_lobby.png"
+                                        data-title="Executive Patient Room">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Premium Lightbox Modal -->
+    <div class="modal fade lightbox-modal" id="lightboxModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content border-0 bg-transparent">
+                <div class="modal-header border-0 pb-0 justify-content-end p-2">
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center p-0">
+                    <img src="" id="lightboxImage" class="img-fluid d-block mx-auto rounded-4 shadow-lg"
+                        alt="Zoomed view" style="max-height: 80vh;" />
+                    <h4 class="text-white mt-3 font-weight-bold" id="lightboxTitle"
+                        style="font-family: 'Montserrat', sans-serif;"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BMH Hospital Events & Activities Section -->
+    <section id="events" class="events-section">
+        <div class="container">
+
+            <!-- Section Header -->
+            <div class="row mb-5">
+                <div class="col-lg-6">
+                    <div class="events-tag mb-3 d-inline-flex align-items-center">
+                        <i class="fa-solid fa-calendar-days me-2"></i>
+                        <span>Latest News</span>
+                    </div>
+                    <h2 class="events-title ttl-h2">Events & Activities</h2>
+                </div>
+                <div class="col-lg-6 d-flex align-items-center">
+                    <p class="events-subtitle mb-0">
+                        Stay connected with the latest health camps, medical breakthroughs, clinical seminars, and
+                        active community welfare events hosted by BMH Perumbavoor.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Events Carousel (Swiper on Mobile, Grid on Desktop) -->
+            <div class="swiper events-swiper pb-4">
+                <div class="swiper-wrapper events-grid-row">
+
+                    <!-- Event Card 1: Medical Camps -->
+                    <div class="swiper-slide event-slide-col">
+                        <div class="event-card">
+                            <div class="event-card-img-wrapper">
+                                <span class="event-card-badge">Medical Camps</span>
+                                <img src="assets/images/about_hospital.png" alt="Free Health & Wellness Camp"
+                                    class="event-card-img" />
+                            </div>
+                            <div class="event-card-body">
+                                <div class="event-card-meta">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>May 20, 2026</span>
+                                </div>
+                                <h4 class="event-card-title ttl-h4">Free Health & Wellness Camp</h4>
+                                <p class="event-card-text">
+                                    Over 500 local residents received free clinical consultations, blood tests, and
+                                    vital
+                                    checks at our community healing camp.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Card 2: Awareness Programs -->
+                    <div class="swiper-slide event-slide-col">
+                        <div class="event-card">
+                            <div class="event-card-img-wrapper">
+                                <span class="event-card-badge">Awareness Programs</span>
+                                <img src="assets/images/hero_lobby.png" alt="Preventive Health Awareness"
+                                    class="event-card-img" />
+                            </div>
+                            <div class="event-card-body">
+                                <div class="event-card-meta">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>May 28, 2026</span>
+                                </div>
+                                <h4 class="event-card-title ttl-h4">Preventive Health Talk</h4>
+                                <p class="event-card-text">
+                                    Hosted interactive wellness talks led by physicians on preventive cardiac habits,
+                                    dietary health, and lifestyle improvements.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Card 3: Doctor Conferences -->
+                    <div class="swiper-slide event-slide-col">
+                        <div class="event-card">
+                            <div class="event-card-img-wrapper">
+                                <span class="event-card-badge">Doctor Conferences</span>
+                                <img src="assets/images/hero_surgery.png" alt="Advanced Laparoscopy Seminar"
+                                    class="event-card-img" />
+                            </div>
+                            <div class="event-card-body">
+                                <div class="event-card-meta">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>June 05, 2026</span>
+                                </div>
+                                <h4 class="event-card-title ttl-h4">Advanced Laparoscopy Seminar</h4>
+                                <p class="event-card-text">
+                                    Hosts premier national surgeons sharing live-streamed minimally invasive surgical
+                                    masterclasses in modular operation theatres.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Card 4: CSR Activities -->
+                    <div class="swiper-slide event-slide-col">
+                        <div class="event-card">
+                            <div class="event-card-img-wrapper">
+                                <span class="event-card-badge">CSR Activities</span>
+                                <img src="assets/images/facility_scanner.png" alt="Mega Blood Donation Drive"
+                                    class="event-card-img" />
+                            </div>
+                            <div class="event-card-body">
+                                <div class="event-card-meta">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>June 14, 2026</span>
+                                </div>
+                                <h4 class="event-card-title ttl-h4">Mega Blood Donation Drive</h4>
+                                <p class="event-card-text">
+                                    Partnered with regional community teams to gather critical blood supplies, ensuring
+                                    emergency surgical readiness.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Scrollbar for Mobile Only -->
+                <div class="swiper-scrollbar events-scrollbar d-md-none mt-3"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Premium BMH Careers / Work With Us Section (Screenshot-inspired Design) -->
+    <section id="careers" class="careers-section py-5">
+        <div class="container">
+
+            <!-- Sleek White Card Container covering the entire section -->
+            <div class="careers-container-card bg-white p-4 p-md-5 rounded-4 shadow-lg border border-light">
+                <div class="row g-5">
+
+                    <!-- Left Column: Info & Clinical Benefit Boxes -->
+                    <div class="col-lg-5 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="careers-tag-small text-uppercase tracking-wider fw-bold text-primary mb-3"
+                                style="font-size: 13px; font-family: 'Montserrat', sans-serif;">
+                                Work With Us
+                            </div>
+                            <h2 class="careers-main-title ttl-h2">
+                                Join Our <br><span class="text-primary">Healing Team</span>
+                            </h2>
+                            <p class="careers-desc text-muted mb-5" style="font-size: 14.5px; line-height: 1.6;">
+                                Join our mission to deliver compassionate, advanced, and premium clinical excellence. We
+                                are constantly searching for talented medical professionals, physician specialists, and
+                                dedicated nursing teams to expand our services.
+                            </p>
+                        </div>
+
+                        <!-- Careers Benefit Info Boxes (Styled like the Hotline boxes in the screenshot) -->
+                        <div class="careers-info-boxes mt-auto">
+                            <!-- Benefit Box 1 -->
+                            <div class="careers-info-box d-flex align-items-center mb-4">
+                                <div class="info-box-icon me-3 d-flex align-items-center justify-content-center">
+                                    <i class="fa-solid fa-hospital-user text-primary"></i>
+                                </div>
+                                <div>
+                                    <span class="info-box-label text-muted d-block text-uppercase"
+                                        style="font-size: 11px; letter-spacing: 0.5px;">Why Join Us</span>
+                                    <strong class="info-box-value text-slate-800" style="font-size: 15px;">Advanced
+                                        Infrastructure</strong>
+                                </div>
+                            </div>
+
+                            <!-- Benefit Box 2 -->
+                            <div class="careers-info-box d-flex align-items-center mb-4">
+                                <div class="info-box-icon me-3 d-flex align-items-center justify-content-center">
+                                    <i class="fa-solid fa-graduation-cap text-primary"></i>
+                                </div>
+                                <div>
+                                    <span class="info-box-label text-muted d-block text-uppercase"
+                                        style="font-size: 11px; letter-spacing: 0.5px;">Why Join Us</span>
+                                    <strong class="info-box-value text-slate-800" style="font-size: 15px;">Continuous
+                                        Growth</strong>
+                                </div>
+                            </div>
+
+                            <!-- Benefit Box 3 -->
+                            <div class="careers-info-box d-flex align-items-center">
+                                <div class="info-box-icon me-3 d-flex align-items-center justify-content-center">
+                                    <i class="fa-solid fa-heart-pulse text-primary"></i>
+                                </div>
+                                <div>
+                                    <span class="info-box-label text-muted d-block text-uppercase"
+                                        style="font-size: 11px; letter-spacing: 0.5px;">Why Join Us</span>
+                                    <strong class="info-box-value text-slate-800" style="font-size: 15px;">Caring
+                                        Environment</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Minimal Underline Form -->
+                    <div class="col-lg-7">
+                        <div id="careersFormContainer" class="ps-lg-4">
+                            <form id="careersForm" class="needs-validation" novalidate>
+
+                                <!-- Full Name Input -->
+                                <div class="form-underline-group mb-4">
+                                    <i class="fa-regular fa-user input-icon"></i>
+                                    <input type="text" class="form-control-underline" id="careersName"
+                                        placeholder="Full Name *" required>
+                                </div>
+
+                                <!-- Phone Number Input -->
+                                <div class="form-underline-group mb-4">
+                                    <i class="fa-solid fa-phone input-icon"></i>
+                                    <input type="tel" class="form-control-underline" id="careersPhone"
+                                        placeholder="Phone Number *" required>
+                                </div>
+
+                                <!-- Email ID Input -->
+                                <div class="form-underline-group mb-4">
+                                    <i class="fa-regular fa-envelope input-icon"></i>
+                                    <input type="email" class="form-control-underline" id="careersEmail"
+                                        placeholder="Email ID *" required>
+                                </div>
+
+                                <!-- File Attachment Input (Interactive Underline Trigger) -->
+                                <div class="form-underline-group mb-4 position-relative" id="careersFileWrapper"
+                                    style="cursor: pointer;">
+                                    <i class="fa-solid fa-paperclip input-icon"></i>
+                                    <input type="text" readonly class="form-control-underline" id="careersFileDummy"
+                                        placeholder="Upload CV / Resume (PDF, DOCX) *" required
+                                        style="cursor: pointer;">
+                                    <input type="file" id="careersFile" accept=".pdf,.docx,.doc" class="d-none"
+                                        required>
+                                </div>
+
+                                <!-- Message Textarea -->
+                                <div class="form-underline-group mb-5">
+                                    <i class="fa-solid fa-notes-medical input-icon"
+                                        style="top: 15px; transform: none;"></i>
+                                    <textarea class="form-control-underline" id="careersMessage"
+                                        placeholder="How can we help you? (Message / Cover Note) *" rows="4" required
+                                        style="resize: none;"></textarea>
+                                </div>
+
+                                <!-- Submit Button (Styled EXACTLY like screenshot) -->
+                                <button type="submit"
+                                    class="btn btn-primary-rect py-3 w-100 font-montserrat fw-bold text-white d-flex align-items-center justify-content-center gap-2">
+                                    Submit Application <i class="fa-solid fa-arrow-right"
+                                        style="transform: none !important;"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Success State Alert -->
+                        <div id="careersSuccessState" class="text-center py-5 d-none ps-lg-4">
+                            <div class="success-tick-wrapper mb-4">
+                                <div class="success-checkmark">
+                                    <div class="check-icon">
+                                        <span class="icon-line line-tip"></span>
+                                        <span class="icon-line line-long"></span>
+                                        <div class="icon-circle"></div>
+                                        <div class="icon-fix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h4 class="text-slate-900 mb-2 font-montserrat fw-bold">Application Received!</h4>
+                            <p class="text-muted mb-0">Thank you for submitting your resume. Our HR department will
+                                review your profile and contact you shortly if it matches our requirements.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BMH Hospital "How to Reach" Section (No Map Layout) -->
+    <section id="reach" class="reach-section">
+        <div class="container">
+
+            <!-- Section Header (Centered Layout matching other sections) -->
+            <div class="row mb-5 justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="reach-tag mb-3 d-inline-flex align-items-center">
+                        <i class="fa-solid fa-compass me-2"></i>
+                        <span>Transit & Directions</span>
+                    </div>
+                    <h2 class="reach-title ttl-h2 mb-3">How to Reach BMH</h2>
+                    <p class="reach-subtitle mx-auto mb-0">
+                        Conveniently situated in the heart of Perumbavoor, our medical campus is easily accessible
+                        through multiple transportation networks across Kerala.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Transit Modes Grid -->
+            <div class="row g-4 mb-5">
+                <!-- By Air -->
+                <div class="col-lg-3 col-md-6">
+                    <div
+                        class="reach-card h-100 p-4 rounded-4 shadow-sm bg-white border border-light text-center d-flex flex-column align-items-center">
+                        <div class="reach-card-icon mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-plane-departure"></i>
+                        </div>
+                        <h4 class="reach-card-title mb-2">By Air</h4>
+                        <h5 class="reach-card-subtitle mb-3 text-muted">Cochin International Airport (COK)</h5>
+                        <p class="reach-card-desc text-muted mb-4">
+                            Located just a short drive away. Readily active pre-paid taxi booths and direct airport
+                            feeder lines ensure speedy commutes.
+                        </p>
+                        <div class="reach-card-badge mt-auto d-inline-flex align-items-center">
+                            <i class="fa-solid fa-route me-1"></i>
+                            <span>12 km • 20 Mins Drive</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- By Rail -->
+                <div class="col-lg-3 col-md-6">
+                    <div
+                        class="reach-card h-100 p-4 rounded-4 shadow-sm bg-white border border-light text-center d-flex flex-column align-items-center">
+                        <div class="reach-card-icon mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-train"></i>
+                        </div>
+                        <h4 class="reach-card-title mb-2">By Rail</h4>
+                        <h5 class="reach-card-subtitle mb-3 text-muted">Aluva Railway Station</h5>
+                        <p class="reach-card-desc text-muted mb-4">
+                            The nearest major railhead connecting all major Indian cities. Active auto stands and local
+                            cabs are stationed just outside the station.
+                        </p>
+                        <div class="reach-card-badge mt-auto d-inline-flex align-items-center">
+                            <i class="fa-solid fa-route me-1"></i>
+                            <span>15 km • 25 Mins Drive</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- By Road -->
+                <div class="col-lg-3 col-md-6">
+                    <div
+                        class="reach-card h-100 p-4 rounded-4 shadow-sm bg-white border border-light text-center d-flex flex-column align-items-center">
+                        <div class="reach-card-icon mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-bus"></i>
+                        </div>
+                        <h4 class="reach-card-title mb-2">By Road</h4>
+                        <h5 class="reach-card-subtitle mb-3 text-muted">Perumbavoor KSRTC Stand</h5>
+                        <p class="reach-card-desc text-muted mb-4">
+                            Sits right along the Main Central (MC) Road. Easily accessible via city buses,
+                            inter-district coaches, and private transport lines.
+                        </p>
+                        <div class="reach-card-badge mt-auto d-inline-flex align-items-center">
+                            <i class="fa-solid fa-route me-1"></i>
+                            <span>1.5 km • 5 Mins Drive</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- By Metro -->
+                <div class="col-lg-3 col-md-6">
+                    <div
+                        class="reach-card h-100 p-4 rounded-4 shadow-sm bg-white border border-light text-center d-flex flex-column align-items-center">
+                        <div class="reach-card-icon mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-train-subway"></i>
+                        </div>
+                        <h4 class="reach-card-title mb-2">By Metro</h4>
+                        <h5 class="reach-card-subtitle mb-3 text-muted">Aluva Metro Station</h5>
+                        <p class="reach-card-desc text-muted mb-4">
+                            Direct connection to the entire Kochi Metro corridor. Direct feeder services, app-cabs, and
+                            local shuttles run continuously to Perumbavoor.
+                        </p>
+                        <div class="reach-card-badge mt-auto d-inline-flex align-items-center">
+                            <i class="fa-solid fa-route me-1"></i>
+                            <span>14.5 km • 22 Mins Drive</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Landmark Guide & Quick Distance Matrix Strip -->
+            <div class="reach-matrix-strip p-4 rounded-4 bg-white shadow-sm border border-light">
+                <div class="row align-items-center text-center text-lg-start">
+                    <div class="col-lg-3 mb-3 mb-lg-0">
+                        <h5 class="matrix-title mb-1 font-montserrat fw-bold text-slate-800"><i
+                                class="fa-solid fa-map-pin text-primary me-2"></i>Distance Matrix</h5>
+                        <p class="matrix-desc text-muted mb-0" style="font-size: 13px;">Quick distances from adjacent
+                            towns:</p>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+                            <div
+                                class="matrix-item px-3 py-2 rounded-3 bg-light border border-light d-flex align-items-center">
+                                <span class="fw-bold text-slate-800 me-2" style="font-size: 13.5px;">Kochi
+                                    (Ernakulam):</span>
+                                <span class="badge bg-primary-light text-primary" style="font-size: 12px;">35 km</span>
+                            </div>
+                            <div
+                                class="matrix-item px-3 py-2 rounded-3 bg-light border border-light d-flex align-items-center">
+                                <span class="fw-bold text-slate-800 me-2"
+                                    style="font-size: 13.5px;">Muvattupuzha:</span>
+                                <span class="badge bg-primary-light text-primary" style="font-size: 12px;">22 km</span>
+                            </div>
+                            <div
+                                class="matrix-item px-3 py-2 rounded-3 bg-light border border-light d-flex align-items-center">
+                                <span class="fw-bold text-slate-800 me-2"
+                                    style="font-size: 13.5px;">Kothamangalam:</span>
+                                <span class="badge bg-primary-light text-primary" style="font-size: 12px;">18 km</span>
+                            </div>
+                            <div
+                                class="matrix-item px-3 py-2 rounded-3 bg-light border border-light d-flex align-items-center">
+                                <span class="fw-bold text-slate-800 me-2" style="font-size: 13.5px;">Angamaly:</span>
+                                <span class="badge bg-primary-light text-primary" style="font-size: 12px;">17 km</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Premium BMH Footer Section -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row g-5">
+
+                <!-- Column 1: Brand & About -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-brand mb-4">
+                        <img src="assets/images/BMH.png" alt="BMH Logo" class="footer-logo"
+                            style="height: 60px; filter: brightness(0) invert(1);" />
+                    </div>
+                    <p class="footer-about-text">
+                        BMH Perumbavoor is committed to delivering advanced, compassionate, and accessible healthcare
+                        services backed by experienced specialists and modern medical infrastructure.
+                    </p>
+                    <div class="footer-social-links mt-4">
+                        <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="footer-column-title">Quick Links</h4>
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="footer-links-list list-unstyled mb-0">
+                                <li><a href="#about"><i class="fa-solid fa-chevron-right me-2"></i>About Us</a></li>
+                                <li><a href="#specialities"><i
+                                            class="fa-solid fa-chevron-right me-2"></i>Specialities</a></li>
+                                <li><a href="#doctors"><i class="fa-solid fa-chevron-right me-2"></i>Doctors</a></li>
+                                <li><a href="#facilities"><i class="fa-solid fa-chevron-right me-2"></i>Facilities</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="footer-links-list list-unstyled mb-0">
+                                <li><a href="#gallery"><i class="fa-solid fa-chevron-right me-2"></i>Gallery</a></li>
+                                <li><a href="#events"><i class="fa-solid fa-chevron-right me-2"></i>Events</a></li>
+                                <li><a href="#careers"><i class="fa-solid fa-chevron-right me-2"></i>Careers</a></li>
+                                <li><a href="#contact"><i class="fa-solid fa-chevron-right me-2"></i>Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 3: Contact Info -->
+                <div class="col-lg-4 col-md-12">
+                    <h4 class="footer-column-title">Contact</h4>
+                    <ul class="footer-contact-list list-unstyled">
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="fa-solid fa-location-dot contact-icon me-3 mt-1"></i>
+                            <span class="contact-text">BMH Perumbavoor Perumbavoor, Kerala</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3 emergency-hotline">
+                            <i class="fa-solid fa-phone-flip contact-icon me-3 text-danger"></i>
+                            <span class="contact-text">
+                                <strong class="text-white d-block">Emergency (24/7):</strong>
+                                <a href="tel:+91XXXXXXXXXX"
+                                    class="hotline-link text-danger font-monospace font-weight-bold">+91 XXXXX XXXXX</a>
+                            </span>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="fa-solid fa-calendar-check contact-icon me-3 mt-1"></i>
+                            <span class="contact-text">
+                                <strong class="text-white d-block">Appointments:</strong>
+                                <a href="tel:+91XXXXXXXXXX" class="contact-link">+91 XXXXX XXXXX</a>
+                            </span>
+                        </li>
+                        <li class="d-flex align-items-start">
+                            <i class="fa-solid fa-envelope contact-icon me-3 mt-1"></i>
+                            <span class="contact-text">
+                                <strong class="text-white d-block">Email Support:</strong>
+                                <a href="mailto:info@bmhperumbavoor.com"
+                                    class="contact-link">info@bmhperumbavoor.com</a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Footer Bottom Line -->
+            <hr class="footer-divider mt-5 mb-4" />
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="copyright-text mb-0">&copy; 2026 BMH Perumbavoor. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <ul class="footer-policy-links list-inline mb-0">
+                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                        <li class="list-inline-item ms-3"><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Premium Appointment Modal -->
+    <div class="modal fade appointment-modal" id="appointmentModal" tabindex="-1"
+        aria-labelledby="appointmentModalLabel" aria-hidden="true" data-lenis-prevent>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <div class="modal-header-brand d-flex align-items-center">
+                        <h4 class="modal-title-text mb-0" id="appointmentModalLabel">Book Appointment</h4>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="modal-subtitle-text mb-4">Please fill in your details below and our medical coordination
+                        team will contact you shortly to confirm your booking schedule.</p>
+
+                    <form id="appointmentForm" class="row g-3 needs-validation" novalidate>
+                        <!-- Full Name -->
+                        <div class="col-md-6">
+                            <label for="modalFullName" class="form-label">Full Name <span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                                <input type="text" class="form-control" id="modalFullName" placeholder="John Doe"
+                                    required>
+                            </div>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="col-md-6">
+                            <label for="modalPhone" class="form-label">Phone Number <span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                                <input type="tel" class="form-control" id="modalPhone" placeholder="+91 XXXXX XXXXX"
+                                    required>
+                            </div>
+                        </div>
+
+                        <!-- Email Address -->
+                        <div class="col-md-6">
+                            <label for="modalEmail" class="form-label">Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-regular fa-envelope"></i></span>
+                                <input type="email" class="form-control" id="modalEmail" placeholder="name@example.com">
+                            </div>
+                        </div>
+
+                        <!-- Preferred Date (Custom Calendar) -->
+                        <div class="col-md-6 position-relative">
+                            <label for="modalDateInput" class="form-label">Preferred Date <span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group datepicker-group" id="datepickerWrapper" style="cursor: pointer;">
+                                <span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span>
+                                <input type="text" class="form-control" id="modalDateInput" placeholder="Select Date"
+                                    readonly required style="cursor: pointer;">
+                            </div>
+
+                            <!-- Custom Calendar Popover -->
+                            <div class="custom-calendar-popover d-none" id="customCalendarPopover">
+                                <div class="calendar-header d-flex justify-content-between align-items-center mb-3">
+                                    <button type="button" class="btn btn-sm btn-link text-white p-0" id="prevMonthBtn">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <h6 class="calendar-month-year mb-0 text-white font-weight-bold"
+                                        id="calendarMonthYear"></h6>
+                                    <button type="button" class="btn btn-sm btn-link text-white p-0" id="nextMonthBtn">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <div class="calendar-weekdays d-grid text-center mb-2"
+                                    style="grid-template-columns: repeat(7, 1fr); font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">
+                                    <div>Su</div>
+                                    <div>Mo</div>
+                                    <div>Tu</div>
+                                    <div>We</div>
+                                    <div>Th</div>
+                                    <div>Fr</div>
+                                    <div>Sa</div>
+                                </div>
+                                <div class="calendar-days d-grid text-center" id="calendarDaysGrid"
+                                    style="grid-template-columns: repeat(7, 1fr); gap: 4px;">
+                                    <!-- Dynamic calendar grid cells -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Select Specialty -->
+                        <div class="col-md-6">
+                            <label for="modalSpecialty" class="form-label">Select Specialty <span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-stethoscope"></i></span>
+                                <select class="form-select" id="modalSpecialty" required>
+                                    <option value="" selected disabled>Choose specialty...</option>
+                                    <option value="cardiology">Cardiology</option>
+                                    <option value="orthopaedics">Orthopaedics</option>
+                                    <option value="neurology">Neurology</option>
+                                    <option value="general-medicine">General Medicine</option>
+                                    <option value="paediatrics">Paediatrics</option>
+                                    <option value="obstetrics-gynaecology">Obstetrics & Gynaecology</option>
+                                    <option value="pulmonology">Pulmonology</option>
+                                    <option value="neurosurgery">Neurosurgery & Spine</option>
+                                    <option value="urology">Urology</option>
+                                    <option value="oncology">Oncology</option>
+                                    <option value="gastroenterology">Gastroenterology</option>
+                                    <option value="dermatology">Dermatology</option>
+                                    <option value="emergency-medicine">Emergency Medicine</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Select Doctor -->
+                        <div class="col-md-6">
+                            <label for="modalDoctor" class="form-label">Select Doctor (Optional)</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-user-doctor"></i></span>
+                                <select class="form-select" id="modalDoctor">
+                                    <option value="" selected>Any Available Specialist</option>
+                                    <option value="dr-sharma">Dr. Rajesh Sharma (Cardiology)</option>
+                                    <option value="dr-mathew">Dr. Susan Mathew (Paediatrics)</option>
+                                    <option value="dr-menon">Dr. Arvind Menon (Orthopaedics)</option>
+                                    <option value="dr-krishnan">Dr. Priya Krishnan (Neurology)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Message / Brief Symptoms -->
+                        <div class="col-12">
+                            <label for="modalSymptoms" class="form-label">Brief Note / Symptoms (Optional)</label>
+                            <textarea class="form-control" id="modalSymptoms" rows="3"
+                                placeholder="Describe any brief symptoms or notes for the doctor..."></textarea>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="col-12 mt-4 d-flex flex-column-reverse flex-sm-row justify-content-end gap-2">
+                            <button type="button" class="btn btn-outline-light rounded-pill px-4 w-100 w-sm-auto"
+                                data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-4 w-100 w-sm-auto">Request Schedule <i
+                                    class="fa-solid fa-calendar-check ms-2"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous"></script>
+
+    <!-- Swiper JS Script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- GSAP Animation Engine & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+
+    <!-- Core UI Interactions Script -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

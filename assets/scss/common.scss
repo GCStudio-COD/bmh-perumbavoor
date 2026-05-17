@@ -1,0 +1,574 @@
+// ==========================================================================
+// Theme Color Palette - Medical & Health Care (BMH Perumbavoor)
+// Curated with high-fidelity, premium tones centered around your brand colors.
+// ==========================================================================
+
+// Primary Brand Colors (Deep Clinical Royal Blue)
+$color-primary: #005BAA; // Your Brand Primary Blue
+$color-primary-light: #E6F0FA; // Soft pastel blue ambient tint for cards & backgrounds
+$color-primary-dark: #004580; // Darker brand blue for active states/hovers
+
+// Secondary Accent Colors (Vibrant Care Amber/Orange)
+$color-secondary: #F15A22; // Your Brand Secondary Orange
+$color-secondary-light: #FFF2EC; // Soft pastel secondary tint
+$color-secondary-dark: #C84210; // Darker secondary orange for active/hover states
+
+// Semantic Clinical & Caring Tones
+$color-healing: #198754; // Emerald Green for health, vitals, and wellness
+$color-healing-light: #E8F5E9; // Pastel green highlight
+$color-warmth: #FF9F43; // Gentle Amber/Orange for alerts & notifications
+
+// Semantic Neutral Grays (Harmonious contrast hierarchy)
+$color-heading: #0F172A; // Slate 900 - Deepest slate for premium typography
+$color-body: #475569; // Slate 600 - Perfect, highly legible body text
+$color-muted: #64748B; // Slate 500 - Subdued text & label elements
+$color-border: #E2E8F0; // Slate 200 - Extremely soft borders for clean spacing
+
+// Surface & Background Colors (Premium clean design)
+$color-bg-main: #F8FAFC; // Slate 50 - Ultra-clean background surface
+$color-bg-card: #FFFFFF; // Pure white for floating card elements
+$color-bg-dark: #0F172A; // Slate 900 - Cinematic dark theme background
+$color-white: #FFFFFF;
+$color-black: #000000;
+
+// Glassmorphic / Translucent Overlays
+$glass-bg: rgba(255, 255, 255, 0.75);
+$glass-border: rgba(255, 255, 255, 0.4);
+$glass-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.08);
+
+// ==========================================================================
+// Responsive Breakpoint Variables & SCSS Mixins
+// ==========================================================================
+$breakpoint-sm: 576px; // Landscape Phones
+$breakpoint-md: 768px; // Tablets
+$breakpoint-lg: 992px; // Small Laptops
+$breakpoint-xl: 1200px; // Desktops
+$breakpoint-xxl: 1400px; // Large Desktops
+$breakpoint-super: 1600px; // Ultra Desktops / High-Res Monitors
+
+// Mobile-First SCSS Mixin (Usage: @include media-up(md) { ... })
+@mixin media-up($size) {
+    @if $size ==sm {
+        @media (min-width: $breakpoint-sm) {
+            @content;
+        }
+    }
+
+    @else if $size ==md {
+        @media (min-width: $breakpoint-md) {
+            @content;
+        }
+    }
+
+    @else if $size ==lg {
+        @media (min-width: $breakpoint-lg) {
+            @content;
+        }
+    }
+
+    @else if $size ==xl {
+        @media (min-width: $breakpoint-xl) {
+            @content;
+        }
+    }
+
+    @else if $size ==xxl {
+        @media (min-width: $breakpoint-xxl) {
+            @content;
+        }
+    }
+
+    @else if $size ==super {
+        @media (min-width: $breakpoint-super) {
+            @content;
+        }
+    }
+}
+
+// Aspect Ratio Mixin for Premium Media and Images
+@mixin aspectRatio($height, $width) {
+    padding-top: calc((#{$height}/#{$width})*100%);
+    position: relative;
+
+    img {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        top: 0;
+    }
+}
+
+// ==========================================================================
+// CSS Custom Properties Export (For seamless integration across JS and raw CSS)
+// ==========================================================================
+:root {
+    // Override Bootstrap's native font-family properties globally
+    --bs-font-sans-serif: 'Montserrat', sans-serif !important;
+    --bs-body-font-family: 'Montserrat', sans-serif !important;
+    --bs-headings-font-family: 'Montserrat', sans-serif !important;
+
+    --primary: #{$color-primary};
+    --primary-light: #{$color-primary-light};
+    --primary-dark: #{$color-primary-dark};
+
+    --secondary: #{$color-secondary};
+    --secondary-light: #{$color-secondary-light};
+    --secondary-dark: #{$color-secondary-dark};
+
+    --healing: #{$color-healing};
+    --healing-light: #{$color-healing-light};
+    --warmth: #{$color-warmth};
+    --heading: #{$color-heading};
+    --body: #{$color-body};
+    --muted: #{$color-muted};
+    --border: #{$color-border};
+    --bg-main: #{$color-bg-main};
+    --bg-card: #{$color-bg-card};
+    --bg-dark: #{$color-bg-dark};
+    --white: #{$color-white};
+    --black: #{$color-black};
+
+    --glass-bg: #{$glass-bg};
+    --glass-border: #{$glass-border};
+    --glass-shadow: #{$glass-shadow};
+}
+
+// ==========================================================================
+// Modern CSS Reset & Base Defaults
+// Centered around seamless cross-browser consistency and responsive smoothness.
+// ==========================================================================
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+    color: $color-body;
+    background-color: $color-bg-main;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    padding-top: 82px;
+    /* Offset for fixed header */
+}
+
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+        color: $color-primary;
+    }
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+// ==========================================================================
+// Custom Premium Grid & Container System
+// Mobile-first layouts with generous padding and wide-aspect desktop support.
+// ==========================================================================
+
+.container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px; // Generous mobile padding to prevent edge touches
+    padding-left: 15px;
+    box-sizing: border-box;
+
+    @include media-up(sm) {
+        max-width: 540px;
+    }
+
+    @include media-up(md) {
+        max-width: 720px;
+    }
+
+    @include media-up(lg) {
+        max-width: 960px;
+    }
+
+    @include media-up(xl) {
+        max-width: 1140px;
+    }
+
+    @include media-up(xxl) {
+        max-width: 1320px;
+    }
+
+    @include media-up(super) {
+        max-width: 1520px; // Ultra premium cinematic layout width
+    }
+}
+
+// ==========================================================================
+// Premium Button Components
+// Sleek layouts, tactile scale-up transforms, and elegant glow shadows.
+// ==========================================================================
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 30px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    border: 1.5px solid transparent;
+
+    // Icon alignment inside buttons
+    i,
+    svg {
+        display: inline-block;
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        font-size: 0.9em;
+        transform: rotate(-45deg);
+    }
+}
+
+// --- Primary Button Style ---
+.btn-primary {
+    @extend .btn;
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-white;
+
+    &:hover {
+        background-color: $color-primary-dark;
+        border-color: $color-primary-dark;
+        color: $color-white;
+
+        i,
+        svg {
+            transform: rotate(0deg); // Remove 45deg angle on hover
+        }
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+// --- Secondary Button Style ---
+.btn-secondary {
+    @extend .btn;
+    background-color: $color-secondary;
+    border-color: $color-secondary;
+    color: $color-white;
+
+    &:hover {
+        background-color: $color-secondary;
+        border-color: $color-secondary-dark;
+        color: $color-white;
+
+        i,
+        svg {
+            transform: translate(3px, -3px) rotate(-45deg); // Kinetic up-right hover motion
+        }
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+// --- Primary Outline Variant ---
+.btn-primary-outline {
+    @extend .btn;
+    background-color: transparent;
+    color: $color-primary;
+    border-color: $color-primary;
+
+    &:hover {
+        background-color: $color-primary;
+        border-color: $color-primary;
+        color: $color-white;
+    }
+}
+
+// --- Secondary Outline Variant ---
+.btn-secondary-outline {
+    @extend .btn;
+    background-color: transparent;
+    color: $color-secondary;
+    border-color: $color-secondary;
+
+    &:hover {
+        background-color: $color-secondary;
+        border-color: $color-secondary;
+        color: $color-white;
+    }
+}
+
+// ==========================================================================
+// Premium Typography & Heading Scale (h1 - h6)
+// Featuring fluid clamping for flawless responsive screen scaling.
+// ==========================================================================
+
+h1,
+h1,
+h2,
+h2,
+h3,
+h3,
+h4,
+h4,
+h5,
+h5,
+h6,
+h6 {
+    font-family: 'Montserrat', sans-serif !important;
+    color: $color-heading;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+    font-weight: 600; // Montserrat-SemiBold
+    transition: color 0.3s ease;
+}
+
+h1,
+.ttl-h1 {
+    font-size: 32px; // Mobile First Default
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+
+    @include media-up(sm) {
+        font-size: 36px;
+    }
+
+    @include media-up(md) {
+        font-size: 42px !important;
+    }
+
+    @include media-up(lg) {
+        font-size: 48px !important;
+    }
+
+    @include media-up(xl) {
+        font-size: 52px !important;
+    }
+
+    @include media-up(xxl) {
+        font-size: 56px !important;
+    }
+
+    @include media-up(super) {
+        font-size: 64px !important;
+    }
+}
+
+h2,
+.ttl-h2 {
+    font-size: 30px; // Mobile First Default
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+
+    @include media-up(sm) {
+        font-size: 28px;
+    }
+
+    @include media-up(md) {
+        font-size: 32px !important;
+    }
+
+    @include media-up(lg) {
+        font-size: 36px !important;
+    }
+
+    @include media-up(xl) {
+        font-size: 38px !important;
+    }
+
+    @include media-up(xxl) {
+        font-size: 42px !important;
+    }
+
+    @include media-up(super) {
+        font-size: 44px !important;
+    }
+}
+
+h3,
+.ttl-h3 {
+    font-size: 22px; // Mobile First Default
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+
+    @include media-up(sm) {
+        font-size: 24px;
+    }
+
+    @include media-up(md) {
+        font-size: 26px !important;
+    }
+
+    @include media-up(lg) {
+        font-size: 28px !important;
+    }
+
+    @include media-up(xl) {
+        font-size: 30px !important;
+    }
+
+    @include media-up(xxl) {
+        font-size: 32px !important;
+    }
+
+    @include media-up(super) {
+        font-size: 34px !important;
+    }
+}
+
+h4,
+.ttl-h4 {
+    font-size: 19px; // Mobile First Default
+    line-height: 1.25;
+
+    @include media-up(sm) {
+        font-size: 20px;
+    }
+
+    @include media-up(md) {
+        font-size: 22px;
+    }
+
+    @include media-up(lg) {
+        font-size: 24px;
+    }
+
+    @include media-up(xl) {
+        font-size: 25px !important;
+    }
+
+    @include media-up(xxl) {
+        font-size: 26px;
+    }
+
+    @include media-up(super) {
+        font-size: 28px;
+    }
+}
+
+h5,
+.ttl-h5 {
+    font-size: 17px; // Mobile First Default
+    line-height: 1.3;
+
+    @include media-up(sm) {
+        font-size: 18px;
+    }
+
+    @include media-up(md) {
+        font-size: 19px !important;
+    }
+
+    @include media-up(lg) {
+        font-size: 20px !important;
+    }
+
+    @include media-up(xl) {
+        font-size: 21px !important;
+    }
+
+    @include media-up(xxl) {
+        font-size: 22px !important;
+    }
+
+    @include media-up(super) {
+        font-size: 24px !important;
+    }
+}
+
+h6,
+.ttl-h6 {
+    font-size: 14px; // Mobile First Default
+    line-height: 1.35;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $color-muted;
+
+    @include media-up(sm) {
+        font-size: 14px !important;
+    }
+
+    @include media-up(md) {
+        font-size: 15px;
+    }
+
+    @include media-up(lg) {
+        font-size: 15px;
+    }
+
+    @include media-up(xl) {
+        font-size: 16px;
+    }
+
+    @include media-up(xxl) {
+        font-size: 16px;
+    }
+
+    @include media-up(super) {
+        font-size: 18px;
+    }
+}
+
+
+// ==========================================================================
+// ==========================================================================
+// Raw Mobile-First Responsive Styles (0px Default in main SCSS above)
+// ==========================================================================
