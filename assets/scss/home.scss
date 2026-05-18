@@ -58,9 +58,6 @@ header {
             gap: 8px;
             width: auto !important; // Desktop override reset
             align-items: center !important; // Vertical alignment centered
-            position: absolute !important; // Mathematically centered in header
-            left: 50% !important;
-            transform: translateX(-50%) !important;
             margin: 0 !important;
         }
 
@@ -518,7 +515,15 @@ header {
     position: relative;
     overflow: hidden;
 
-    @include media-up(lg) {
+    @include media-up(md) {
+        padding: 70px 0;
+    }
+
+    @media (min-width: 1200px) {
+        padding: 80px 0;
+    }
+
+    @media (min-width: 1600px) {
         padding: 100px 0;
     }
 
@@ -675,17 +680,21 @@ header {
 // World-Class Facilities Section (Swiper Carousel Layout)
 // ==========================================================================
 .facilities-section {
-    padding: 60px 0;
+    padding: 60px 0 35px 0;
     background-color: var(--bg-main); // Contrast light grey surface
     position: relative;
     overflow: hidden;
 
-    @include media-up(lg) {
-        padding: 70px 0;
+    @include media-up(md) {
+        padding: 70px 0 45px 0;
     }
 
-    @media (min-width: 1400px) {
-        padding: 100px 0;
+    @media (min-width: 1200px) {
+        padding: 80px 0 50px 0;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 100px 0 60px 0;
     }
 
     .facilities-tag {
@@ -802,26 +811,31 @@ header {
         bottom: 0px !important;
     }
 
-    .swiper-pagination-bullet {
-        background-color: #CBD5E1 !important;
-        opacity: 0.65 !important;
-        transition: all 0.3s ease;
-
-        &-active {
-            background-color: var(--primary) !important;
-            opacity: 1 !important;
-        }
-    }
 }
+
+
 
 // ==========================================================================
 // 8. SPECIALTIES SECTION (BENTO GRID & MOBILE SWIPER)
 // ==========================================================================
 .specialties-section {
+    padding: 35px 0 40px 0;
     background-color: #f8fafc; // Match standard premium page backdrops
     position: relative;
     overflow: hidden;
     width: 100%;
+
+    @include media-up(md) {
+        padding: 45px 0 70px 0;
+    }
+
+    @media (min-width: 1200px) {
+        padding: 70px 0 70px 0;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 80px 0;
+    }
 
     .specialties-tag {
         background-color: rgba(0, 91, 170, 0.05);
@@ -1159,20 +1173,213 @@ header {
 
 }
 
+
+// ==========================================================================
+// 8B. NEARBY ATTRACTIONS SECTION
+// ==========================================================================
+.attractions-section {
+    padding: 60px 0;
+    background-color: var(--white); // Alternative backdrops to create balanced white/slate rhythm on page
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+
+    @include media-up(md) {
+        padding: 70px 0;
+    }
+
+    @media (min-width: 1200px) {
+        padding: 80px 0;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 100px 0;
+    }
+
+    .attractions-tag {
+        background-color: rgba(0, 91, 170, 0.05);
+        border: 1px solid rgba(0, 91, 170, 0.15);
+        padding: 6px 16px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--primary);
+        font-family: 'Montserrat', sans-serif !important;
+    }
+
+    .attractions-nav-group {
+        .btn-nav {
+            position: static !important;
+            width: 44px !important;
+            height: 44px !important;
+            background-color: var(--bg-main) !important;
+            color: var(--primary) !important;
+            border: 1.5px solid var(--border) !important;
+            border-radius: 50% !important;
+            margin-top: 0 !important;
+            font-size: 14px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.3s ease !important;
+            cursor: pointer !important;
+
+            &::after {
+                display: none !important;
+            }
+
+            &:hover {
+                background-color: var(--primary) !important;
+                color: var(--white) !important;
+                border-color: var(--primary) !important;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 91, 170, 0.15);
+            }
+
+            &.swiper-button-disabled {
+                opacity: 0.5 !important;
+                cursor: not-allowed !important;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+        }
+    }
+
+    .attractions-swiper {
+        overflow: hidden !important;
+        padding: 15px 0 25px 0 !important;
+        margin: -15px 0 -25px 0 !important;
+    }
+
+    .attraction-card {
+        background-color: transparent !important;
+        border-radius: 0 !important;
+        overflow: hidden;
+        border: none !important;
+        box-shadow: none !important;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        &:hover {
+            transform: translateY(-5px);
+
+            .attraction-img {
+                transform: scale(1.05);
+            }
+        }
+
+        .attraction-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            border-radius: 0 !important;
+        }
+
+        .attraction-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+            border-radius: 0 !important;
+        }
+
+        .attraction-distance {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 10;
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif !important;
+        }
+
+        .attraction-card-body {
+            padding: 20px 0 0 0;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: left !important;
+        }
+
+        .attraction-tag {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--secondary);
+            font-family: 'Montserrat', sans-serif !important;
+        }
+
+        .attraction-title {
+            color: var(--heading) !important;
+            margin-bottom: 0;
+        }
+
+        .attraction-desc {
+            font-size: 13.5px;
+            line-height: 1.6;
+            margin-bottom: 0;
+            color: var(--body) !important;
+        }
+
+        .attraction-footer {
+            border-top: 1px solid rgba(15, 23, 42, 0.05);
+            padding-top: 16px;
+            margin-top: auto;
+        }
+
+        .attraction-route {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif !important;
+        }
+    }
+
+    .attractions-scrollbar {
+        height: 4px !important;
+        background-color: rgba(15, 23, 42, 0.06) !important;
+        border-radius: 4px !important;
+
+        .swiper-scrollbar-drag {
+            background-color: var(--primary) !important;
+            border-radius: 4px !important;
+        }
+    }
+}
+
 // ==========================================================================
 // 9. EVENTS SECTION (LATEST NEWS & ACTIVITIES)
 // ==========================================================================
 .events-section {
-    padding: 40px 0;
+    padding: 50px 0;
     background-color: #f8fafc; // Soft slate premium background
     position: relative;
     overflow: hidden;
 
-    @include media-up(lg) {
+    @include media-up(md) {
+        padding: 70px 0;
+    }
+
+    @media (min-width: 1200px) {
         padding: 60px 0;
     }
 
-    @media (min-width: 1400px) {
+    @media (min-width: 1600px) {
         padding: 80px 0;
     }
 
@@ -1316,6 +1523,7 @@ header {
             .events-grid-row {
                 display: flex !important;
                 flex-wrap: wrap !important;
+                align-items: stretch !important;
                 transform: none !important; // Absolute override for Swiper's inline horizontal translation
                 width: auto !important;
                 margin-right: -12px !important;
@@ -1326,6 +1534,9 @@ header {
                 width: calc(50% - 24px) !important; // 2-Column Grid on Tablet
                 margin: 12px !important;
                 flex-shrink: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                height: auto !important;
 
                 @media (min-width: 992px) {
                     width: calc(33.333% - 24px) !important; // 3-Column Grid on Desktop
@@ -1664,15 +1875,19 @@ header {
 // 12. PREMIUM GALLERY SECTION
 // ==========================================================================
 .gallery-section {
-    padding: 40px 0;
+    padding: 60px 0;
     background-color: var(--bg-body);
 
-    @include media-up(lg) {
-        padding: 60px 0;
+    @include media-up(md) {
+        padding: 70px 0;
     }
 
-    @media (min-width: 1400px) {
-        padding: 80px 0;
+    @media (min-width: 1200px) {
+        padding: 80px 0 60px 0;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 100px 0;
     }
 
     .gallery-tag {
@@ -1850,6 +2065,67 @@ header {
             box-shadow: 0 8px 20px rgba(255, 255, 255, 0.4);
         }
     }
+
+    // Swiper Dual-Mode Responsive Overrides (Swiper on Mobile Only, Grid on Desktop)
+    .gallery-swiper {
+        overflow: visible;
+
+        // Desktop / Tablet Grid View (768px and up)
+        @media (min-width: 768px) {
+            overflow: visible !important;
+
+            .gallery-grid {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                transform: none !important; // Override Swiper's inline horizontal translation
+                width: auto !important;
+                margin-right: -12px !important;
+                margin-left: -12px !important;
+            }
+
+            .gallery-item-col {
+                width: calc(50% - 24px) !important; // 2-Column Grid on Tablet
+                margin: 12px !important;
+                flex-shrink: 0 !important;
+
+                @media (min-width: 992px) {
+                    width: calc(33.333% - 24px) !important; // 3-Column Grid on Desktop
+                }
+            }
+        }
+
+        // Mobile Carousel View (under 768px)
+        @media (max-width: 767.98px) {
+            overflow: hidden !important;
+            padding-bottom: 52px !important; // Generous breathing room for scrollbar
+
+            .gallery-scrollbar {
+                bottom: 8px !important;
+                left: 10% !important;
+                width: 80% !important;
+                height: 4px !important;
+                background-color: rgba(15, 23, 42, 0.06) !important;
+                border-radius: 4px !important;
+
+                .swiper-scrollbar-drag {
+                    background-color: var(--primary) !important;
+                    border-radius: 4px !important;
+                }
+            }
+
+            .gallery-grid {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                align-items: stretch !important; // Force equal height
+            }
+
+            .gallery-item-col {
+                flex-shrink: 0 !important;
+                height: auto !important;
+                display: flex !important;
+            }
+        }
+    }
 }
 
 // Lightbox modal tweaks
@@ -1964,9 +2240,22 @@ header {
 // 15. CAREERS / WORK WITH US SECTION STYLES
 // ==========================================================================
 .careers-section {
+    padding: 40px 0;
     background-color: #f8fafc; // Soft ambient backdrop
     position: relative;
     overflow: hidden;
+
+    @include media-up(md) {
+        padding: 50px 0;
+    }
+
+    @media (min-width: 1200px) {
+        padding: 60px 0;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 70px 0;
+    }
 
     &::before {
         content: '';
@@ -1987,6 +2276,10 @@ header {
 
     .careers-main-title {
         color: #002e5b; // Deep medical midnight blue
+
+        span.text-secondary {
+            color: var(--secondary) !important;
+        }
     }
 
     // Careers Benefit Info Boxes (Styled exactly like the hotline boxes in the screenshot)
@@ -2116,16 +2409,20 @@ header {
 // 16. REACH SECTION STYLES (No Map Layout)
 // ==========================================================================
 .reach-section {
-    padding: 40px 0;
+    padding: 60px 0;
     background-color: var(--bg-body); // Same as page bg for seamless blending
     position: relative;
     overflow: hidden;
 
-    @include media-up(lg) {
-        padding: 60px 0;
+    @include media-up(md) {
+        padding: 70px 0;
     }
 
-    @media (min-width: 1400px) {
+    @media (min-width: 1200px) {
+        padding: 80px 0;
+    }
+
+    @media (min-width: 1600px) {
         padding: 100px 0;
     }
 
@@ -2162,6 +2459,8 @@ header {
     .reach-card {
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         border: 1px solid rgba(0, 91, 170, 0.03) !important;
+        text-align: left !important;
+        align-items: flex-start !important;
 
         .reach-card-icon {
             background-color: rgba(0, 91, 170, 0.05);
@@ -2171,22 +2470,10 @@ header {
             border-radius: 16px;
             font-size: 24px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-left: 0 !important;
+            margin-right: auto !important;
         }
 
-        .reach-card-title {
-            font-family: 'Montserrat', sans-serif !important;
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--heading) !important;
-        }
-
-        .reach-card-subtitle {
-            font-family: 'Montserrat', sans-serif !important;
-            font-weight: 600;
-            font-size: 12px;
-            letter-spacing: 0.3px;
-            color: #94a3b8 !important;
-        }
 
         .reach-card-desc {
             font-size: 13.5px;
@@ -2211,15 +2498,11 @@ header {
             box-shadow: 0 20px 40px rgba(15, 23, 42, 0.05) !important;
             border-color: rgba(0, 91, 170, 0.1) !important;
 
-            .reach-card-icon {
-                background-color: var(--primary);
-                color: var(--white) !important;
-                transform: rotate(-5deg) scale(1.05);
-            }
+
 
             .reach-card-badge {
-                background-color: var(--primary);
-                border-color: var(--primary);
+                background-color: var(--secondary);
+                border-color: var(--secondary);
                 color: var(--white) !important;
             }
         }

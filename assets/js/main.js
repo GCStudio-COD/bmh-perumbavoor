@@ -68,31 +68,74 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(statsSection);
     }
 
-    // Initialize World-Class Facilities Swiper Carousel
-    const facilitiesSwiper = new Swiper('.facilities-swiper', {
-        slidesPerView: 1.2,
-        spaceBetween: 16,
-        grabCursor: true,
-        loop: false,
-        pagination: {
-            el: '.facilities-pagination',
-            clickable: true,
-            dynamicBullets: true,
-        },
-        breakpoints: {
-            576: {
-                slidesPerView: 1.8,
-                spaceBetween: 20,
+    // Initialize World-Class Facilities Swiper Carousel (Always active - Desktop & Mobile)
+    if (document.querySelector('.facilities-swiper')) {
+        new Swiper('.facilities-swiper', {
+            slidesPerView: 1.2,
+            spaceBetween: 16,
+            grabCursor: true,
+            loop: false,
+            pagination: {
+                el: '.facilities-pagination',
+                clickable: true,
+                dynamicBullets: true,
             },
-            768: {
-                slidesPerView: 2.3,
-                spaceBetween: 24,
-            },
-            992: {
-                slidesPerView: 3,
-                spaceBetween: 30,
+            breakpoints: {
+                576: {
+                    slidesPerView: 1.8,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 2.3,
+                    spaceBetween: 24,
+                },
+                992: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                }
+            }
+        });
+    }
+
+    // Initialize Premium Infrastructure Gallery Swiper Carousel (Mobile Only - Under 768px Viewports)
+    let gallerySwiperInstance = null;
+
+    const initGallerySwiper = () => {
+        const galleryContainer = document.querySelector('.gallery-swiper');
+        if (!galleryContainer) return;
+
+        const isMobile = window.innerWidth < 768;
+
+        if (isMobile) {
+            if (!gallerySwiperInstance) {
+                gallerySwiperInstance = new Swiper('.gallery-swiper', {
+                    slidesPerView: 1.2,
+                    spaceBetween: 16,
+                    grabCursor: true,
+                    loop: false,
+                    scrollbar: {
+                        el: '.gallery-scrollbar',
+                        draggable: true,
+                        snapOnRelease: true,
+                    }
+                });
+            }
+        } else {
+            if (gallerySwiperInstance) {
+                gallerySwiperInstance.destroy(true, true);
+                gallerySwiperInstance = null;
             }
         }
+    };
+
+    // Initialize state immediately
+    initGallerySwiper();
+
+    // Debounced listener to re-evaluate Swiper bounds on viewport transitions
+    let galleryResizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(galleryResizeTimeout);
+        galleryResizeTimeout = setTimeout(initGallerySwiper, 150);
     });
 
     // Initialize Our Specialties Swiper Carousel (Common for Desktop and Mobile)
@@ -155,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Show a modern submitting spinner
                 submitButton.disabled = true;
-                submitButton.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin me-2"></i> Booking...`;
+                submitButton.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin me-2"></i> Submitting...`;
 
                 setTimeout(() => {
                     const modalBody = appointmentForm.closest('.modal-body');
@@ -172,8 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="mb-4">
                                 <i class="fa-regular fa-circle-check text-success" style="font-size: 64px;"></i>
                             </div>
-                            <h3 class="text-white font-weight-bold mb-3" style="font-family: 'Montserrat', sans-serif;">Appointment Requested!</h3>
-                            <p class="text-muted mx-auto mb-4" style="max-width: 450px;">Thank you for choosing BMH Perumbavoor. Our medical coordinator will call you back within 2-4 business hours to finalize your appointment schedule.</p>
+                            <h3 class="text-white font-weight-bold mb-3" style="font-family: 'Montserrat', sans-serif;">Application Submitted!</h3>
+                            <p class="text-muted mx-auto mb-4" style="max-width: 450px;">Thank you for your interest in BMH Perumbavoor. Our Human Resources team will review your credentials and contact you shortly.</p>
                             <button type="button" class="btn btn-primary rounded-pill px-5 py-2" data-bs-dismiss="modal">Close Window</button>
                         `;
                         modalBody.appendChild(successAlert);
@@ -185,11 +228,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }, false);
     }
 
-    // Premium Infrastructure Gallery Filtering System
+    // Premium Infrastructure Gallery Filtering System (Dynamic DOM Filtering for perfect Swiper compatibility)
     const filterButtons = document.querySelectorAll('.gallery-filters .filter-btn');
-    const galleryItems = document.querySelectorAll('.gallery-grid .gallery-item');
+    const galleryWrapper = document.querySelector('.gallery-grid');
+    const originalGalleryItems = Array.from(document.querySelectorAll('.gallery-grid .gallery-item'));
 
-    if (filterButtons.length && galleryItems.length) {
+    if (filterButtons.length && galleryWrapper && originalGalleryItems.length) {
+        // Add a CSS transition directly for smoother fade effects
+        galleryWrapper.style.transition = 'opacity 0.25s ease';
+
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 // Toggle active button style
@@ -198,24 +245,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const filterValue = button.getAttribute('data-filter');
 
-                galleryItems.forEach(item => {
-                    item.style.transition = 'all 0.4s ease';
-                    const category = item.getAttribute('data-category');
+                // Fade out wrapper container
+                galleryWrapper.style.opacity = '0';
 
-                    if (filterValue === 'all' || category === filterValue) {
+                setTimeout(() => {
+                    // Empty the wrapper track
+                    galleryWrapper.innerHTML = '';
+
+                    // Filter only matching elements
+                    const matchingItems = originalGalleryItems.filter(item => {
+                        const category = item.getAttribute('data-category');
+                        return filterValue === 'all' || category === filterValue;
+                    });
+
+                    // Re-append active matching cards
+                    matchingItems.forEach(item => {
                         item.classList.remove('d-none');
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'scale(1)';
-                        }, 50);
-                    } else {
-                        item.style.opacity = '0';
-                        item.style.transform = 'scale(0.8)';
-                        setTimeout(() => {
-                            item.classList.add('d-none');
-                        }, 400);
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                        galleryWrapper.appendChild(item);
+                    });
+
+                    // Fade back in
+                    galleryWrapper.style.opacity = '1';
+
+                    // Update Swiper track and snap to first slide to avoid blank positions
+                    if (gallerySwiperInstance) {
+                        gallerySwiperInstance.update();
+                        gallerySwiperInstance.slideTo(0, 0);
                     }
-                });
+                }, 250);
             });
         });
     }
@@ -392,6 +451,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Modal Work With Us Resume Attachment Trigger
+    const modalResumeWrapper = document.getElementById('modalResumeWrapper');
+    const modalResume = document.getElementById('modalResume');
+    const modalResumeDummy = document.getElementById('modalResumeDummy');
+
+    if (modalResumeWrapper && modalResume && modalResumeDummy) {
+        modalResumeWrapper.addEventListener('click', (e) => {
+            if (e.target !== modalResume) {
+                modalResume.click();
+            }
+        });
+
+        modalResume.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const fileName = e.target.files[0].name;
+                modalResumeDummy.value = fileName;
+                modalResumeDummy.dispatchEvent(new Event('input'));
+            } else {
+                modalResumeDummy.value = '';
+            }
+        });
+    }
+
     const careersForm = document.getElementById('careersForm');
     const careersFormContainer = document.getElementById('careersFormContainer');
     const careersSuccessState = document.getElementById('careersSuccessState');
@@ -467,6 +549,43 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     };
+
+    // Initialize Nearby Attractions Swiper (Common for Desktop and Mobile)
+    if (document.querySelector('.attractions-swiper')) {
+        new Swiper('.attractions-swiper', {
+            slidesPerView: 1.2,
+            spaceBetween: 16,
+            grabCursor: true,
+            loop: false,
+            navigation: {
+                nextEl: '.attractions-next',
+                prevEl: '.attractions-prev',
+            },
+            scrollbar: {
+                el: '.attractions-scrollbar',
+                draggable: true,
+                snapOnRelease: true,
+            },
+            breakpoints: {
+                576: {
+                    slidesPerView: 1.8,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 2.3,
+                    spaceBetween: 24,
+                },
+                992: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                },
+                1200: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                }
+            }
+        });
+    }
 
     // Initialize state immediately
     initEventsSwiper();
