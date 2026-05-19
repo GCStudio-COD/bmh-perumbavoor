@@ -385,6 +385,7 @@ h1,
     font-size: 32px; // Mobile First Default
     line-height: 1.1;
     letter-spacing: -0.025em;
+    font-weight: 700;
 
     @include media-up(sm) {
         font-size: 36px;

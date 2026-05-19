@@ -72,13 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('.facilities-swiper')) {
         new Swiper('.facilities-swiper', {
             slidesPerView: 1.2,
-            spaceBetween: 16,
+            spaceBetween: 10,
             grabCursor: true,
             loop: false,
             pagination: {
                 el: '.facilities-pagination',
                 clickable: true,
                 dynamicBullets: true,
+            },
+            navigation: {
+                nextEl: '.facilities-next',
+                prevEl: '.facilities-prev',
             },
             breakpoints: {
                 576: {
@@ -146,8 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
             grabCursor: true,
             loop: false,
             navigation: {
-                nextEl: '.specialties-next',
-                prevEl: '.specialties-prev',
+                nextEl: '.specialties-next, .specialties-mobile-next',
+                prevEl: '.specialties-prev, .specialties-mobile-prev',
             },
             breakpoints: {
                 576: {
@@ -514,57 +518,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize Events Swiper (Mobile Only - Under 768px Viewports)
-    let eventsSwiperInstance = null;
-
-    const initEventsSwiper = () => {
-        const eventsContainer = document.querySelector('.events-swiper');
-        if (!eventsContainer) return;
-
-        const isMobile = window.innerWidth < 768;
-
-        if (isMobile) {
-            if (!eventsSwiperInstance) {
-                eventsSwiperInstance = new Swiper('.events-swiper', {
-                    slidesPerView: 1,
-                    spaceBetween: 15,
-                    grabCursor: true,
-                    loop: false,
-                    autoplay: {
-                        delay: 3000,
-                        disableOnInteraction: false,
-                    },
-                    scrollbar: {
-                        el: '.events-scrollbar',
-                        draggable: true,
-                        snapOnRelease: true,
-                    }
-                });
-            }
-        } else {
-            if (eventsSwiperInstance) {
-                // Completely dismantle Swiper and clean inline styling elements
-                eventsSwiperInstance.destroy(true, true);
-                eventsSwiperInstance = null;
-            }
-        }
-    };
-
-    // Initialize Nearby Attractions Swiper (Common for Desktop and Mobile)
-    if (document.querySelector('.attractions-swiper')) {
-        new Swiper('.attractions-swiper', {
-            slidesPerView: 1.2,
+    // Initialize Events Swiper (Common for Desktop and Mobile)
+    if (document.querySelector('.events-swiper')) {
+        new Swiper('.events-swiper', {
+            slidesPerView: 1,
             spaceBetween: 16,
             grabCursor: true,
             loop: false,
-            navigation: {
-                nextEl: '.attractions-next',
-                prevEl: '.attractions-prev',
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
             },
-            scrollbar: {
-                el: '.attractions-scrollbar',
-                draggable: true,
-                snapOnRelease: true,
+            navigation: {
+                nextEl: '.events-next',
+                prevEl: '.events-prev',
+            },
+            pagination: {
+                el: '.events-pagination',
+                clickable: true,
+                dynamicBullets: true,
             },
             breakpoints: {
                 576: {
@@ -587,13 +560,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize state immediately
-    initEventsSwiper();
-
-    // Debounced listener to re-evaluate Swiper bounds on viewport transitions
-    let eventsResizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(eventsResizeTimeout);
-        eventsResizeTimeout = setTimeout(initEventsSwiper, 150);
-    });
+    // Initialize Nearby Attractions Swiper (Common for Desktop and Mobile)
+    if (document.querySelector('.attractions-swiper')) {
+        new Swiper('.attractions-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 16,
+            grabCursor: true,
+            loop: false,
+            navigation: {
+                nextEl: '.attractions-next',
+                prevEl: '.attractions-prev',
+            },
+            pagination: {
+                el: '.attractions-pagination',
+                clickable: true,
+                dynamicBullets: true,
+            },
+            breakpoints: {
+                576: {
+                    slidesPerView: 1.8,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 2.3,
+                    spaceBetween: 24,
+                },
+                992: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                },
+                1200: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                }
+            }
+        });
+    }
 });
