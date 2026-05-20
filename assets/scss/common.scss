@@ -143,6 +143,11 @@ $breakpoint-super: 1600px; // Ultra Desktops / High-Res Monitors
     color: var(--primary) !important;
 }
 
+.text-16 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
 // ==========================================================================
 // Modern CSS Reset & Base Defaults
 // Centered around seamless cross-browser consistency and responsive smoothness.

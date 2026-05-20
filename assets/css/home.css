@@ -33,6 +33,11 @@
   color: var(--primary) !important;
 }
 
+.text-16 {
+  font-size: 16px;
+  font-weight: 400;
+}
+
 *,
 *::before,
 *::after {
@@ -1193,7 +1198,7 @@ header .navbar-collapse.show {
 }
 .about-section .about-badge-tag {
   display: inline-block;
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -1271,14 +1276,14 @@ header .navbar-collapse.show {
 }
 .about-section .about-lead {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.7;
   color: var(--body);
   margin-bottom: 24px;
 }
 @media (min-width: 768px) {
   .about-section .about-lead {
-    font-size: 17.5px;
+    font-size: 16px;
   }
 }
 .about-section .about-text {
@@ -3606,7 +3611,7 @@ header .navbar-collapse.show {
 .events-subtitle,
 .attractions-subtitle,
 .reach-subtitle {
-  font-size: 15.5px !important;
+  font-size: 16px !important;
   line-height: 1.65 !important;
   color: var(--body) !important;
   opacity: 0.8 !important;
