@@ -605,10 +605,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const isCollapsed = collapsibleDetails.classList.contains('collapsed');
             if (isCollapsed) {
                 collapsibleDetails.classList.remove('collapsed');
-                readMoreToggle.innerHTML = 'Less&lt;&lt;';
+                readMoreToggle.classList.add('expanded');
+                const textSpan = readMoreToggle.querySelector('.toggle-text');
+                if (textSpan) {
+                    textSpan.textContent = 'Less';
+                } else {
+                    readMoreToggle.innerHTML = 'Less&lt;&lt;';
+                }
             } else {
                 collapsibleDetails.classList.add('collapsed');
-                readMoreToggle.innerHTML = 'More&gt;&gt;';
+                readMoreToggle.classList.remove('expanded');
+                const textSpan = readMoreToggle.querySelector('.toggle-text');
+                if (textSpan) {
+                    textSpan.textContent = 'More';
+                } else {
+                    readMoreToggle.innerHTML = 'More&gt;&gt;';
+                }
             }
             // Refresh ScrollTrigger to adjust paths for Lenis and other GSAP animations
             setTimeout(() => {

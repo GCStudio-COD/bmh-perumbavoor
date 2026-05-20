@@ -135,6 +135,13 @@ $breakpoint-super: 1600px; // Ultra Desktops / High-Res Monitors
     --glass-shadow: #{$glass-shadow};
 }
 
+.text-secondary {
+    color: var(--secondary) !important;
+}
+.text-primary {
+    color: var(--primary) !important;
+}
+
 // ==========================================================================
 // Modern CSS Reset & Base Defaults
 // Centered around seamless cross-browser consistency and responsive smoothness.
