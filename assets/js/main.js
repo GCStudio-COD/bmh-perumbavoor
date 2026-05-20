@@ -596,4 +596,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // About read more collapsible toggle
+    const readMoreToggle = document.getElementById('about-read-more-toggle');
+    const collapsibleDetails = document.getElementById('about-collapsible-details');
+    if (readMoreToggle && collapsibleDetails) {
+        readMoreToggle.addEventListener('click', () => {
+            const isCollapsed = collapsibleDetails.classList.contains('collapsed');
+            if (isCollapsed) {
+                collapsibleDetails.classList.remove('collapsed');
+                readMoreToggle.innerHTML = 'Less&lt;&lt;';
+            } else {
+                collapsibleDetails.classList.add('collapsed');
+                readMoreToggle.innerHTML = 'More&gt;&gt;';
+            }
+            // Refresh ScrollTrigger to adjust paths for Lenis and other GSAP animations
+            setTimeout(() => {
+                if (typeof ScrollTrigger !== 'undefined') {
+                    ScrollTrigger.refresh();
+                }
+            }, 300);
+        });
+    }
 });
