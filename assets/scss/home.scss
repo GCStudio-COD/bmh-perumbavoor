@@ -764,10 +764,11 @@ header {
     .about-stats-grid-container {
         width: 100%;
         margin-top: 30px;
-
-
-
         padding: 8px 0;
+
+        @media (max-width: 576px) {
+            margin-top: 0;
+        }
     }
 
     .about-stats-2x2 {
@@ -831,6 +832,25 @@ header {
                 &:nth-child(3),
                 &:nth-child(4) {
                     grid-column: span 2;
+                    padding: 20px 0;
+
+                    .stat-grid-icon-box {
+                        width: 44px !important;
+                        height: 44px !important;
+
+                        svg {
+                            width: 32px !important;
+                            height: 32px !important;
+                        }
+                    }
+
+                    .stat-grid-number {
+                        font-size: 38px !important;
+                    }
+
+                    .stat-grid-label {
+                        font-size: 13.5px !important;
+                    }
                 }
 
                 &:nth-child(4) {
@@ -839,7 +859,7 @@ header {
             }
 
             @media (max-width: 480px) {
-                padding: 16px 10px;
+                padding: 16px 0;
                 gap: 8px;
             }
         }
@@ -892,7 +912,7 @@ header {
             }
 
             @media (max-width: 480px) {
-                font-size: 24px;
+                font-size: 30px;
             }
         }
 

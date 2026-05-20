@@ -138,6 +138,7 @@ $breakpoint-super: 1600px; // Ultra Desktops / High-Res Monitors
 .text-secondary {
     color: var(--secondary) !important;
 }
+
 .text-primary {
     color: var(--primary) !important;
 }
@@ -513,7 +514,7 @@ h4,
 
 h5,
 .ttl-h5 {
-    font-size: 17px; // Mobile First Default
+    font-size: 22px; // Mobile First Default
     line-height: 1.3;
 
     @include media-up(sm) {
