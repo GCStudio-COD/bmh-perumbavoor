@@ -891,12 +891,12 @@ header .navbar-collapse.show {
 @media (min-width: 768px) {
   .hero-section .carousel-caption.hero-caption {
     bottom: 20% !important;
-    max-width: 950px;
+    max-width: 920px;
   }
 }
 
 .hero-subtitle {
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -929,7 +929,7 @@ header .navbar-collapse.show {
 }
 @media (min-width: 992px) {
   .hero-text {
-    font-size: 18px;
+    font-size: 20px;
   }
 }
 
@@ -1194,6 +1194,7 @@ header .navbar-collapse.show {
 .about-section .about-badge-tag {
   display: inline-block;
   font-size: 11px;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: black;
@@ -1342,6 +1343,11 @@ header .navbar-collapse.show {
           transform: translateY(-50%);
   z-index: 1;
 }
+@media (max-width: 576px) {
+  .about-section .about-stats-2x2::before, .about-section .about-stats-2x2::after {
+    display: none;
+  }
+}
 .about-section .about-stats-2x2 .stat-grid-item {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1358,6 +1364,21 @@ header .navbar-collapse.show {
   .about-section .about-stats-2x2 .stat-grid-item {
     padding: 24px 20px;
     gap: 12px;
+  }
+}
+@media (max-width: 576px) {
+  .about-section .about-stats-2x2 .stat-grid-item {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  }
+  .about-section .about-stats-2x2 .stat-grid-item:nth-child(1) {
+    border-right: 1px solid rgba(15, 23, 42, 0.08);
+  }
+  .about-section .about-stats-2x2 .stat-grid-item:nth-child(3), .about-section .about-stats-2x2 .stat-grid-item:nth-child(4) {
+    -ms-grid-column-span: 2;
+    grid-column: span 2;
+  }
+  .about-section .about-stats-2x2 .stat-grid-item:nth-child(4) {
+    border-bottom: none;
   }
 }
 @media (max-width: 480px) {

@@ -347,14 +347,14 @@ header {
 
             bottom: 20% !important;
             // transform: translateY(-50%) !important;
-            max-width: 950px;
+            max-width: 920px;
         }
     }
 }
 
 // Subtitle, Title, Text and Action Styles
 .hero-subtitle {
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -390,7 +390,7 @@ header {
     font-weight: 400;
 
     @include media-up(lg) {
-        font-size: 18px;
+        font-size: 20px;
     }
 }
 
@@ -646,7 +646,7 @@ header {
     .about-badge-tag {
         display: inline-block;
         font-size: 11px;
-
+        font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 2px;
         color: black;
@@ -800,6 +800,14 @@ header {
             z-index: 1;
         }
 
+        @media (max-width: 576px) {
+
+            &::before,
+            &::after {
+                display: none;
+            }
+        }
+
         .stat-grid-item {
             display: flex;
             align-items: center;
@@ -811,6 +819,23 @@ header {
             @media (max-width: 768px) {
                 padding: 24px 20px;
                 gap: 12px;
+            }
+
+            @media (max-width: 576px) {
+                border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+
+                &:nth-child(1) {
+                    border-right: 1px solid rgba(15, 23, 42, 0.08);
+                }
+
+                &:nth-child(3),
+                &:nth-child(4) {
+                    grid-column: span 2;
+                }
+
+                &:nth-child(4) {
+                    border-bottom: none;
+                }
             }
 
             @media (max-width: 480px) {
