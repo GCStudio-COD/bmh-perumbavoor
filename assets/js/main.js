@@ -9,10 +9,10 @@ console.log("BMH Core UI Script initialized");
 const lenis = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // smooth easing
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-    mouseMultiplier: 1,
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 1,
     smoothTouch: false,
     touchMultiplier: 2,
     infinite: false,
@@ -23,7 +23,6 @@ function raf(time) {
     requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);
-
 
 
 const toggler = document.querySelector('.navbar-toggler');
@@ -481,6 +480,7 @@ if (document.querySelector('.attractions-swiper')) {
         spaceBetween: 16,
         grabCursor: true,
         loop: false,
+        touchReleaseOnEdges: true,
         breakpoints: {
             576: {
                 slidesPerView: 1.8,
@@ -631,6 +631,9 @@ async function loadCMSData() {
         }
 
         console.log("CMS dynamic data successfully loaded and applied.");
+        if (typeof lenis !== 'undefined') {
+            lenis.resize();
+        }
     } catch (err) {
         console.error('Error loading CMS data:', err);
     }
@@ -638,6 +641,132 @@ async function loadCMSData() {
 
 // Call the CMS loading function
 loadCMSData();
+
+// Initialize Gallery (Grid for Desktop, Swiper for Mobile)
+const galleryFilterBtns = document.querySelectorAll('.gallery-filters .filter-btn');
+const galleryDesktopGrid = document.querySelector('.gallery-desktop-grid');
+const galleryMobileSwiper = document.querySelector('.gallery-mobile-swiper');
+
+if (galleryDesktopGrid && galleryMobileSwiper) {
+    const originalDesktopItems = Array.from(galleryDesktopGrid.querySelectorAll('.gallery-item'));
+    const originalMobileSlides = Array.from(galleryMobileSwiper.querySelectorAll('.swiper-slide'));
+
+    let gallerySwiperInstance = null;
+
+    function initGalleryMobileSwiper() {
+        if (window.innerWidth < 992) {
+            if (!gallerySwiperInstance) {
+                gallerySwiperInstance = new Swiper('.gallery-mobile-swiper', {
+                    slidesPerView: 1.2,
+                    spaceBetween: 16,
+                    grabCursor: true,
+                    loop: false,
+                    touchReleaseOnEdges: true,
+                    observer: true,
+                    observeParents: true,
+                    pagination: {
+                        el: '.gallery-pagination',
+                        clickable: true,
+                    },
+                    breakpoints: {
+                        576: {
+                            slidesPerView: 1.5,
+                            spaceBetween: 20,
+                        },
+                        768: {
+                            slidesPerView: 2.2,
+                            spaceBetween: 24,
+                        }
+                    }
+                });
+            }
+        } else {
+            if (gallerySwiperInstance) {
+                gallerySwiperInstance.destroy(true, true);
+                gallerySwiperInstance = null;
+            }
+        }
+    }
+
+    // Initialize on load and adjust on resize
+    initGalleryMobileSwiper();
+    window.addEventListener('resize', initGalleryMobileSwiper);
+
+    if (galleryFilterBtns.length) {
+        galleryFilterBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                // Toggle active class on buttons
+                galleryFilterBtns.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                // Filter Desktop Grid
+                galleryDesktopGrid.style.opacity = '0';
+                setTimeout(() => {
+                    galleryDesktopGrid.innerHTML = '';
+                    const matchingDesktop = originalDesktopItems.filter(item => {
+                        const category = item.getAttribute('data-category');
+                        return filterValue === 'all' || category === filterValue;
+                    });
+                    matchingDesktop.forEach(item => {
+                        galleryDesktopGrid.appendChild(item);
+                    });
+                    galleryDesktopGrid.style.opacity = '1';
+
+                    // Recalculate Lenis scroll dimensions
+                    if (typeof lenis !== 'undefined') {
+                        lenis.resize();
+                    }
+                }, 200);
+
+                // Filter Mobile Swiper
+                const swiperWrapper = galleryMobileSwiper.querySelector('.swiper-wrapper');
+                if (swiperWrapper) {
+                    swiperWrapper.style.opacity = '0';
+                    setTimeout(() => {
+                        swiperWrapper.innerHTML = '';
+                        const matchingMobile = originalMobileSlides.filter(item => {
+                            const category = item.getAttribute('data-category');
+                            return filterValue === 'all' || category === filterValue;
+                        });
+                        matchingMobile.forEach(item => {
+                            swiperWrapper.appendChild(item);
+                        });
+                        swiperWrapper.style.opacity = '1';
+                        if (gallerySwiperInstance) {
+                            gallerySwiperInstance.update();
+                            gallerySwiperInstance.slideTo(0, 0);
+                        }
+
+                        // Recalculate Lenis scroll dimensions
+                        if (typeof lenis !== 'undefined') {
+                            lenis.resize();
+                        }
+                    }, 200);
+                }
+            });
+        });
+    }
+}
+
+// Lightbox Modal Dynamic Image Loading
+const lightboxModalEl = document.getElementById('lightboxModal');
+if (lightboxModalEl) {
+    lightboxModalEl.addEventListener('show.bs.modal', (event) => {
+        const triggerButton = event.relatedTarget;
+        const imgSrc = triggerButton.getAttribute('data-src');
+        const imgTitle = triggerButton.getAttribute('data-title');
+
+        const lightboxImage = lightboxModalEl.querySelector('#lightboxImage');
+        const lightboxTitle = lightboxModalEl.querySelector('#lightboxTitle');
+
+        if (lightboxImage && lightboxTitle) {
+            lightboxImage.src = imgSrc;
+            lightboxTitle.textContent = imgTitle;
+        }
+    });
+}
 
 // Prevent downloading of images via right-click and drag
 document.addEventListener('contextmenu', (e) => {

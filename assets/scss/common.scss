@@ -633,3 +633,27 @@ h6,
         opacity: 0;
     }
 }
+
+// ==========================================================================
+// Lenis Smooth Scroll Compatibility Overrides
+// ==========================================================================
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+html.lenis {
+    scroll-behavior: auto !important;
+}
+
+html.lenis [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
+}
