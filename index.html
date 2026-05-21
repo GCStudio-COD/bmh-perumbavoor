@@ -44,12 +44,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 
+    <!-- Preload LCP Image -->
+    <link rel="preload" as="image" href="assets/images/banner/hospital-medical-surgery-team-is-ready-for-the-ope-2026-03-24-07-42-35-utc.jpg.jpeg">
+
     <!-- CSS & Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
+    
     <link rel="stylesheet" href="assets/css/home.css">
-    <script src="https://kit.fontawesome.com/586da91eec.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/586da91eec.js" crossorigin="anonymous" defer></script>
 
     <!-- Schema.org JSON-LD Hospital Structured Data -->
     <script type="application/ld+json">
@@ -131,8 +138,10 @@
         }
       ]
     }
-    </script> <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    </script> 
+    <!-- AOS Animation Library (Deferred) -->
+
+
 </head>
 
 <body>
@@ -246,7 +255,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="about-section" id="about" data-aos="fade-up">
+    <section class="about-section" id="about">
         <div class="container">
             <!-- Label and Title Left-Aligned -->
             <div class="row mb-4">
@@ -263,7 +272,7 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="about-image-container-wide position-relative overflow-hidden">
-                        <img src="assets/images/4.jpeg" alt="BMH Perumbavoor Hospital Building"
+                        <img loading="lazy" src="assets/images/4.jpeg" alt="BMH Perumbavoor Hospital Building"
                             class="w-100 object-fit-cover" style="max-height: 600px; min-height: 300px;">
                         <div class="position-absolute top-0 start-0 w-100 h-100 opacity-10"></div>
                     </div>
@@ -391,11 +400,7 @@
                     <div class="stat-grid-item">
                         <div class="stat-grid-icon-box">
                             <!-- Shield Check SVG -->
-                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F15A22"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                                <path d="m9 11 2 2 4-4" />
-                            </svg>
+                            <div class="bg-secondary" style="width: 36px; height: 36px; -webkit-mask: url('assets/images/excellence.png') center/contain no-repeat; mask: url('assets/images/excellence.png') center/contain no-repeat;"></div>
                         </div>
                         <div class="stat-grid-info">
                             <div class="stat-grid-num-wrapper">
@@ -410,13 +415,7 @@
                     <div class="stat-grid-item">
                         <div class="stat-grid-icon-box">
                             <!-- Group of Users SVG -->
-                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F15A22"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                                <circle cx="9" cy="7" r="4" />
-                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                            </svg>
+                            <div class="bg-secondary" style="width: 36px; height: 36px; -webkit-mask: url('assets/images/patients.png') center/contain no-repeat; mask: url('assets/images/patients.png') center/contain no-repeat;"></div>
                         </div>
                         <div class="stat-grid-info">
                             <div class="stat-grid-num-wrapper">
@@ -431,14 +430,7 @@
                     <div class="stat-grid-item">
                         <div class="stat-grid-icon-box">
                             <!-- Bed SVG -->
-                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F15A22"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M2 4v16" />
-                                <path d="M2 11h18" />
-                                <path d="M22 8v12" />
-                                <path d="M2 8h20" />
-                                <circle cx="7" cy="14" r="2" />
-                            </svg>
+                            <div class="bg-secondary" style="width: 36px; height: 36px; -webkit-mask: url('assets/images/bed.svg') center/contain no-repeat; mask: url('assets/images/bed.svg') center/contain no-repeat;"></div>
                         </div>
                         <div class="stat-grid-info">
                             <div class="stat-grid-num-wrapper">
@@ -452,13 +444,7 @@
                     <div class="stat-grid-item">
                         <div class="stat-grid-icon-box">
                             <!-- Hand Holding Medical SVG -->
-                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F15A22"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 11h4" />
-                                <path d="M14 9v4" />
-                                <path d="M14 17H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2" />
-                                <path d="M16 14h2a2 2 0 0 1 2 2v3.5a1.5 1.5 0 0 1-3 0V17" />
-                            </svg>
+                            <div class="bg-secondary" style="width: 36px; height: 36px; -webkit-mask: url('assets/images/specialities.png') center/contain no-repeat; mask: url('assets/images/specialities.png') center/contain no-repeat;"></div>
                         </div>
                         <div class="stat-grid-info">
                             <div class="stat-grid-num-wrapper">
@@ -474,7 +460,7 @@
     </section>
 
     <!-- Facilities Section -->
-    <section id="facilities" class="facilities-section" data-aos="fade-up">
+    <section id="facilities" class="facilities-section">
         <div class="container">
             <!-- Section Header -->
             <div class="row mb-5">
@@ -598,8 +584,9 @@
         </div>
     </section>
 
+
     <!-- Specialties Section -->
-    <section class="specialties-section" id="specialties" data-aos="fade-up">
+    <section class="specialties-section" id="specialties">
         <div class="container">
 
             <!-- Section Header -->
@@ -728,172 +715,7 @@
         </div>
     </section>
 
-    <!-- BMH Premium Hospital Gallery Section -->
-    <section id="gallery" class="gallery-section" data-aos="fade-up">
-        <div class="container">
 
-            <!-- Section Header (Centered Layout) -->
-            <div class="row mb-5 justify-content-center">
-                <div class="col-lg-8 text-start text-lg-center">
-                    <h2 class="gallery-title ttl-h2 mb-3">Our Premium Infrastructure</h2>
-                    <p class="gallery-subtitle mx-0 mx-lg-auto mb-0">
-                        Explore the high-fidelity healing environments, ultra-modern ICU setups, high-precision
-                        operation theatres, and welcoming hospital spaces built to elevate patient comfort at BMH
-                        Perumbavoor.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Gallery Filter Controls -->
-            <div class="row mb-3 mb-lg-4">
-                <div class="col-12">
-                    <div class="gallery-filters d-flex flex-wrap gap-2 justify-content-start justify-content-lg-center">
-                        <button class="filter-btn active" data-filter="all">All Photos</button>
-                        <button class="filter-btn" data-filter="infra">Infrastructure</button>
-                        <button class="filter-btn" data-filter="tech">Medical Tech</button>
-                        <button class="filter-btn" data-filter="rooms">Wards & Lobbies</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Gallery Carousel (Swiper on Mobile, Grid on Desktop) -->
-            <div class="swiper gallery-swiper">
-                <div class="swiper-wrapper gallery-grid pt-lg-3">
-
-                    <!-- Item 1: Hospital Lobby (Rooms) -->
-                    <div class="swiper-slide gallery-item-col gallery-item" data-category="rooms">
-                        <div class="gallery-card">
-                            <div class="gallery-img-wrapper">
-                                <img src="assets/images/gallery/empty-hospital-corridor-2026-03-18-17-36-48-utc.jpg.jpeg" alt="Premium Hospital Lobby"
-                                    class="gallery-img" />
-                                <div class="gallery-overlay">
-                                    <div class="gallery-info text-center p-3">
-                                        <span class="gallery-item-category">Wards & Lobbies</span>
-                                        <h4 class="gallery-item-title">Main Reception & Lounge</h4>
-                                        <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal"
-                                            data-bs-target="#lightboxModal" data-src="assets/images/gallery/empty-hospital-corridor-2026-03-18-17-36-48-utc.jpg.jpeg"
-                                            data-title="Main Reception & Lounge">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item 2: Operation Theatre (Infra) -->
-                    <div class="swiper-slide gallery-item-col gallery-item" data-category="infra">
-                        <div class="gallery-card">
-                            <div class="gallery-img-wrapper">
-                                <img src="assets/images/gallery/doctors-preparing-for-surgery-in-bright-operating-2026-03-25-23-38-10-utc.JPG.jpeg" alt="Modular Operation Theatre"
-                                    class="gallery-img" />
-                                <div class="gallery-overlay">
-                                    <div class="gallery-info text-center p-3">
-                                        <span class="gallery-item-category">Infrastructure</span>
-                                        <h4 class="gallery-item-title">Advanced Surgical Suite</h4>
-                                        <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal"
-                                            data-bs-target="#lightboxModal" data-src="assets/images/gallery/doctors-preparing-for-surgery-in-bright-operating-2026-03-25-23-38-10-utc.JPG.jpeg"
-                                            data-title="Advanced Surgical Suite">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item 3: ICU/Emergency (Tech) -->
-                    <div class="swiper-slide gallery-item-col gallery-item" data-category="tech">
-                        <div class="gallery-card">
-                            <div class="gallery-img-wrapper">
-                                <img src="assets/images/gallery/emergency-patient-concept-professional-doctor-wor-2026-03-24-23-52-56-utc.jpg.jpeg" alt="Critical Care Unit"
-                                    class="gallery-img" />
-                                <div class="gallery-overlay">
-                                    <div class="gallery-info text-center p-3">
-                                        <span class="gallery-item-category">Medical Tech</span>
-                                        <h4 class="gallery-item-title">Emergency Care Center</h4>
-                                        <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal"
-                                            data-bs-target="#lightboxModal" data-src="assets/images/gallery/emergency-patient-concept-professional-doctor-wor-2026-03-24-23-52-56-utc.jpg.jpeg"
-                                            data-title="Emergency Care Center">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item 4: CT Scanner (Tech) -->
-                    <div class="swiper-slide gallery-item-col gallery-item" data-category="rooms">
-                        <div class="gallery-card">
-                            <div class="gallery-img-wrapper">
-                                <img src="assets/images/gallery/asian-female-doctor-writing-on-clipboard-at-recept-2026-03-25-01-11-33-utc.jpg.jpeg" alt="Hospital Reception"
-                                    class="gallery-img" />
-                                <div class="gallery-overlay">
-                                    <div class="gallery-info text-center p-3">
-                                        <span class="gallery-item-category">Wards & Lobbies</span>
-                                        <h4 class="gallery-item-title">Outpatient Reception</h4>
-                                        <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal"
-                                            data-bs-target="#lightboxModal"
-                                            data-src="assets/images/gallery/asian-female-doctor-writing-on-clipboard-at-recept-2026-03-25-01-11-33-utc.jpg.jpeg"
-                                            data-title="Outpatient Reception">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item 5: Hospital Building (Infra) -->
-                    <div class="swiper-slide gallery-item-col gallery-item" data-category="infra">
-                        <div class="gallery-card">
-                            <div class="gallery-img-wrapper">
-                                <img src="assets/images/gallery/a-mature-team-of-doctors-walking-in-the-hospital-c-2026-03-10-01-02-10-utc.jpg.jpeg" alt="Expert Medical Team"
-                                    class="gallery-img" />
-                                <div class="gallery-overlay">
-                                    <div class="gallery-info text-center p-3">
-                                        <span class="gallery-item-category">Infrastructure</span>
-                                        <h4 class="gallery-item-title">Expert Medical Team</h4>
-                                        <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal"
-                                            data-bs-target="#lightboxModal" data-src="assets/images/gallery/a-mature-team-of-doctors-walking-in-the-hospital-c-2026-03-10-01-02-10-utc.jpg.jpeg"
-                                            data-title="Expert Medical Team">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item 6: Executive Patient Suite (Rooms) -->
-                    <div class="swiper-slide gallery-item-col gallery-item" data-category="rooms">
-                        <div class="gallery-card">
-                            <div class="gallery-img-wrapper">
-                                <img src="assets/images/gallery/young-nurse-pushing-little-girl-on-wheelchair-at-h-2026-03-25-10-27-43-utc.jpg.jpeg" alt="Patient Care"
-                                    class="gallery-img" />
-                                <div class="gallery-overlay">
-                                    <div class="gallery-info text-center p-3">
-                                        <span class="gallery-item-category">Wards & Lobbies</span>
-                                        <h4 class="gallery-item-title">Compassionate Patient Care</h4>
-                                        <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal"
-                                            data-bs-target="#lightboxModal" data-src="assets/images/gallery/young-nurse-pushing-little-girl-on-wheelchair-at-h-2026-03-25-10-27-43-utc.jpg.jpeg"
-                                            data-title="Compassionate Patient Care">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Scrollbar for Mobile Only -->
-                <div class="swiper-scrollbar gallery-scrollbar d-md-none mt-3"></div>
-            </div>
-
-        </div>
-    </section>
 
     <!-- Premium Lightbox Modal -->
     <div class="modal fade lightbox-modal" id="lightboxModal" tabindex="-1" aria-hidden="true">
@@ -904,7 +726,7 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center p-0">
-                    <img src="" id="lightboxImage" class="img-fluid d-block mx-auto rounded-4 shadow-lg"
+                    <img loading="lazy" src="" id="lightboxImage" class="img-fluid d-block mx-auto rounded-4 shadow-lg"
                         alt="Zoomed view" style="max-height: 80vh;" />
                     <h4 class="text-white mt-3 font-weight-bold" id="lightboxTitle"
                         style="font-family: 'Montserrat', sans-serif;"></h4>
@@ -914,7 +736,7 @@
     </div>
 
     <!-- BMH Hospital Events & Activities Section -->
-    <section id="events" class="events-section" data-aos="fade-up">
+    <section id="events" class="events-section">
         <div class="container">
 
             <!-- Section Header -->
@@ -948,7 +770,7 @@
                         <div class="event-card">
                             <div class="event-card-img-wrapper">
                                 <span class="event-card-badge">Medical Camps</span>
-                                <img src="assets/images/about_hospital.png" alt="Free Health & Wellness Camp"
+                                <img loading="lazy" src="assets/images/about_hospital.png" alt="Free Health & Wellness Camp"
                                     class="event-card-img" />
                             </div>
                             <div class="event-card-body">
@@ -971,7 +793,7 @@
                         <div class="event-card">
                             <div class="event-card-img-wrapper">
                                 <span class="event-card-badge">Awareness Programs</span>
-                                <img src="assets/images/hero_lobby.png" alt="Preventive Health Awareness"
+                                <img loading="lazy" src="assets/images/hero_lobby.png" alt="Preventive Health Awareness"
                                     class="event-card-img" />
                             </div>
                             <div class="event-card-body">
@@ -993,7 +815,7 @@
                         <div class="event-card">
                             <div class="event-card-img-wrapper">
                                 <span class="event-card-badge">Doctor Conferences</span>
-                                <img src="assets/images/hero_surgery.png" alt="Advanced Laparoscopy Seminar"
+                                <img loading="lazy" src="assets/images/hero_surgery.png" alt="Advanced Laparoscopy Seminar"
                                     class="event-card-img" />
                             </div>
                             <div class="event-card-body">
@@ -1015,7 +837,7 @@
                         <div class="event-card">
                             <div class="event-card-img-wrapper">
                                 <span class="event-card-badge">CSR Activities</span>
-                                <img src="assets/images/facility_scanner.png" alt="Mega Blood Donation Drive"
+                                <img loading="lazy" src="assets/images/facility_scanner.png" alt="Mega Blood Donation Drive"
                                     class="event-card-img" />
                             </div>
                             <div class="event-card-body">
@@ -1040,7 +862,7 @@
     </section>
 
     <!-- Premium BMH Careers / Work With Us Section (Screenshot-inspired Design) -->
-    <section id="careers" class="careers-section" data-aos="fade-up">
+    <section id="careers" class="careers-section">
         <div class="container">
 
             <!-- Sleek White Card Container covering the entire section -->
@@ -1185,7 +1007,7 @@
 
 
     <!-- Nearby Attractions Section -->
-    <section class="attractions-section" id="attractions" data-aos="fade-up">
+    <section class="attractions-section" id="attractions">
         <div class="container">
             <div class="row align-items-end mb-5 text-start">
                 <div class="col-lg-8">
@@ -1197,15 +1019,6 @@
                     </p>
                 </div>
                 <div class="col-lg-4 text-lg-end d-none d-lg-block">
-                    <!-- Navigation Arrows -->
-                    <div class="attractions-nav-group d-inline-flex gap-2">
-                        <div class="swiper-button-prev attractions-prev btn-nav">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </div>
-                        <div class="swiper-button-next attractions-next btn-nav">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -1217,7 +1030,7 @@
                         <div class="swiper-slide h-auto">
                             <div class="attraction-card">
                                 <div class="attraction-img-wrapper">
-                                    <img src="assets/images/Munnar.PNG" alt="Munnar" class="attraction-img" />
+                                    <img loading="lazy" src="assets/images/Munnar.PNG" alt="Munnar" class="attraction-img" />
                                 </div>
                                 <div class="attraction-card-body">
                                     <span class="attraction-tag">Wildlife & Nature</span>
@@ -1235,7 +1048,7 @@
                         <div class="swiper-slide h-auto">
                             <div class="attraction-card">
                                 <div class="attraction-img-wrapper">
-                                    <img src="assets/images/Alapuzha.PNG" alt="Alapuzha" class="attraction-img" />
+                                    <img loading="lazy" src="assets/images/Alapuzha.PNG" alt="Alapuzha" class="attraction-img" />
                                 </div>
                                 <div class="attraction-card-body">
                                     <span class="attraction-tag">Ecotourism</span>
@@ -1253,7 +1066,7 @@
                         <div class="swiper-slide h-auto">
                             <div class="attraction-card">
                                 <div class="attraction-img-wrapper">
-                                    <img src="assets/images/Fort Kochi .PNG" alt="Fort Kochi" class="attraction-img" />
+                                    <img loading="lazy" src="assets/images/Fort Kochi .PNG" alt="Fort Kochi" class="attraction-img" />
                                 </div>
                                 <div class="attraction-card-body">
                                     <span class="attraction-tag">Scenic Reserve</span>
@@ -1268,15 +1081,13 @@
                         </div>
                     </div>
 
-                    <!-- Pagination Indicator -->
-                    <div class="swiper-pagination attractions-pagination mt-4 d-lg-none"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- BMH Hospital "How to Reach" Section (No Map Layout) -->
-    <section id="reach" class="reach-section" data-aos="fade-up">
+    <section id="reach" class="reach-section">
         <div class="container">
 
             <!-- Section Header (Centered Layout matching other sections) -->
@@ -1394,8 +1205,8 @@
                         services backed by experienced specialists and modern medical infrastructure.
                     </p>
                     <div class="footer-social-links mt-4">
-                        <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/bmhperumbavoor" target="_blank" rel="noopener noreferrer" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/bmhperumbavoor/" target="_blank" rel="noopener noreferrer" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
                         <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
                         <a href="#" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
                     </div>
@@ -1463,8 +1274,8 @@
                 </div>
                 <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
                     <ul class="footer-policy-links list-inline mb-0">
-                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                        <li class="list-inline-item ms-3"><a href="#">Terms & Conditions</a></li>
+                        <li class="list-inline-item"><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li class="list-inline-item ms-3"><a href="terms-conditions.html">Terms & Conditions</a></li>
                     </ul>
                 </div>
             </div>
@@ -1593,7 +1404,7 @@
     <div class="fixed-bottom-bar d-flex d-md-none align-items-center justify-content-between">
         <div class="nav-logo-wrapper">
             <div class="logo-circle">
-                <img src="assets/images/bmh-favicon.png" alt="BMH Logo">
+                <img loading="lazy" src="assets/images/bmh-favicon.png" alt="BMH Logo">
             </div>
         </div>
         <div class="nav-buttons-wrapper d-flex gap-2">
@@ -1612,27 +1423,54 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous" defer></script>
 
     <!-- Swiper JS Script -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <!-- GSAP Animation Engine & Plugins -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js" defer></script>
+    <script src="assets/js/main.js?v=1.0.2" defer></script>
 
     <!-- Core UI Interactions Script -->
     <!-- AOS Animation Library -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="assets/js/main.js"></script>
+
+    <!-- Cookie Consent Banner -->
+        <div id="cookie-consent" class="cookie-consent-wrapper">
+        <div class="cookie-message">
+            We use cookies to enhance your browsing experience and provide personalized content. By continuing to use our website, you consent to our use of cookies. <a href="terms-conditions.html" class="text-info text-decoration-underline" target="_blank">Learn more</a>
+        </div>
+        <div class="cookie-actions">
+            <button id="decline-cookies" class="btn btn-light btn-sm ms-3">Decline</button>
+            <button id="accept-cookies" class="btn btn-primary btn-sm ms-3">Accept</button>
+        </div>
+    </div>
+    <script>
+        // Check if consent already given
+        const cookieConsent = document.getElementById('cookie-consent');
+        const acceptBtn = document.getElementById('accept-cookies');
+        const declineBtn = document.getElementById('decline-cookies');
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';')[0];
+        }
+        if (!getCookie('cookie_consent')) {
+            cookieConsent.style.display = 'flex';
+        }
+        acceptBtn.addEventListener('click', () => {
+            // Set a cookie for 1 year (accepted)
+            const d = new Date();
+            d.setTime(d.getTime() + (365*24*60*60*1000));
+            document.cookie = `cookie_consent=accepted; expires=${d.toUTCString()}; path=/`;
+            cookieConsent.style.display = 'none';
+        });
+        declineBtn.addEventListener('click', () => {
+            // Set a cookie indicating decline (expires in 30 days)
+            const d = new Date();
+            d.setTime(d.getTime() + (30*24*60*60*1000));
+            document.cookie = `cookie_consent=declined; expires=${d.toUTCString()}; path=/`;
+            cookieConsent.style.display = 'none';
+        });
+    </script>
 </body>
 
 </html>
