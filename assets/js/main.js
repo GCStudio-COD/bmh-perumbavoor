@@ -542,245 +542,562 @@ if (typeof AOS !== 'undefined') {
 }
 
 // --- CMS API Integration ---
-const API_URL = 'http://localhost:5000/api';
+const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.port !== '') ? 'http://localhost:5000/api' : '/api';
 
 const getImageUrl = (url) => {
     if (!url) return '';
     if (url.startsWith('http') || url.startsWith('data:') || url.startsWith('assets/')) {
         return url;
     }
-    return `http://localhost:5000${url.startsWith('/') ? '' : '/'}${url}`;
+    const origin = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.port !== '') ? 'http://localhost:5000' : '';
+    return `${origin}${url.startsWith('/') ? '' : '/'}${url}`;
 };
+
+// Gallery variables
+let originalDesktopItems = [];
+let originalMobileSlides = [];
+let gallerySwiperInstance = null;
+const itemsPerPage = 6;
+let currentPage = 1;
 
 async function loadCMSData() {
     try {
-        console.log("Fetching dynamic data from CMS API...");
+        console.log("Fetching dynamic page data from CMS API...");
+        const res = await fetch(`${API_URL}/homepage`);
+        if (!res.ok) throw new Error('Failed to fetch homepage data');
+        const data = await res.json();
+        const { config, heroes, facilities, specialties, gallery, events, attractions, reachModes } = data;
 
-        // Fetch Heroes
-        const heroRes = await fetch(`${API_URL}/heroes`);
-        if (heroRes.ok) {
-            const heroes = await heroRes.json();
-            const activeHeroes = heroes.filter(h => h.isActive);
-            if (activeHeroes.length > 0) {
-                const wrapper = document.querySelector('#heroCarousel .carousel-inner');
-                if (wrapper) {
-                    wrapper.innerHTML = activeHeroes.map((h, index) => `
-                        <div class="carousel-item ${index === 0 ? 'active' : ''}" style="background-image: url('${getImageUrl(h.imageUrl)}');">
-                            <div class="hero-overlay"></div>
-                            <div class="container h-100 position-relative">
-                                <div class="carousel-caption hero-caption">
-                                    <h1 class="ttl-h1 hero-title mb-3">${h.title}</h1>
-                                    <p class="hero-text">${h.subtitle || ''}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('');
-                }
+        // 1. Populate Config Texts
+        if (config) {
+            // About Section
+            const badgeTag = document.querySelector('.about-badge-tag');
+            if (badgeTag) badgeTag.innerHTML = config.about_badge || 'overview';
+            
+            const aboutTitle = document.querySelector('.about-title');
+            if (aboutTitle) aboutTitle.innerHTML = config.about_title || '';
+            
+            const aboutImg = document.querySelector('.about-image-container-wide img');
+            if (aboutImg) aboutImg.src = getImageUrl(config.about_image);
+            
+            const aboutParas = document.querySelectorAll('.about-section p.text-16');
+            if (aboutParas.length >= 3) {
+                // If there are standard paragraph elements
+                const leadPara = document.querySelector('.about-section p.fw-medium');
+                if (leadPara) leadPara.innerHTML = config.about_lead || '';
+                
+                aboutParas[0].innerHTML = config.about_paragraph1 || '';
+                aboutParas[1].innerHTML = config.about_paragraph2 || '';
             }
-        }
 
-        // Fetch Facilities
-        const facRes = await fetch(`${API_URL}/facilities`);
-        if (facRes.ok) {
-            const facilities = await facRes.json();
-            if (facilities.length > 0) {
-                const wrapper = document.querySelector('.facilities-swiper .swiper-wrapper');
-                if (wrapper) {
-                    wrapper.innerHTML = facilities.map(f => `
-                        <div class="swiper-slide">
-                            <div class="facility-card" style="background-image: url('${getImageUrl(f.imageUrl)}');">
-                                <div class="facility-content">
-                                    <h4 class="facility-card-title ttl-h4">${f.title}</h4>
-                                    <p class="facility-card-desc">${f.description}</p>
+            const collapsibleInner = document.querySelector('.about-collapsible-inner');
+            if (collapsibleInner) {
+                // Populate collapsible paragraphs
+                const pElements = collapsibleInner.querySelectorAll('p.text-16');
+                if (pElements.length >= 3) {
+                    pElements[0].innerHTML = config.about_collapsible_p1 || '';
+                    pElements[1].innerHTML = config.about_collapsible_p2 || '';
+                    pElements[2].innerHTML = config.about_collapsible_p3 || '';
+                }
+
+                // Render features list dynamically
+                let features = [];
+                try {
+                    features = typeof config.about_features === 'string' ? JSON.parse(config.about_features) : config.about_features;
+                } catch(e) {}
+
+                if (Array.isArray(features) && features.length > 0) {
+                    const checklistGrid = collapsibleInner.querySelector('.row.g-3');
+                    if (checklistGrid) {
+                        checklistGrid.innerHTML = features.map(feat => `
+                            <div class="col-12 col-md-6">
+                                <div class="d-flex align-items-start p-3 bg-light rounded-4 h-100">
+                                    <i class="fa-solid fa-circle-check text-secondary me-3 mt-1 fs-5"></i>
+                                    <p class="fw-bold text-slate-800 mb-0">${feat.text}</p>
                                 </div>
                             </div>
-                        </div>
-                    `).join('');
-
-                    const swiperEl = document.querySelector('.facilities-swiper');
-                    if (swiperEl && swiperEl.swiper) {
-                        swiperEl.swiper.update();
+                        `).join('');
                     }
                 }
             }
-        }
 
-        // Fetch Specialties
-        const specRes = await fetch(`${API_URL}/specialties`);
-        if (specRes.ok) {
-            const specialties = await specRes.json();
-            if (specialties.length > 0) {
-                const wrapper = document.querySelector('.specialties-swiper .swiper-wrapper');
-                if (wrapper) {
-                    wrapper.innerHTML = specialties.map(s => `
-                        <div class="swiper-slide">
-                            <div class="bento-card h-100">
-                                <div class="bento-card-bg" style="background-image: url('${getImageUrl(s.imageUrl)}');"></div>
-                                <div class="bento-card-body">
-                                    <h4 class="bento-card-title ttl-h4">${s.title}</h4>
-                                    <p class="bento-card-text">${s.description}</p>
+            // Stats counter
+            let stats = [];
+            try {
+                stats = typeof config.about_stats === 'string' ? JSON.parse(config.about_stats) : config.about_stats;
+            } catch(e) {}
+            if (Array.isArray(stats) && stats.length > 0) {
+                const statsRow = document.querySelector('.about-stats-2x2');
+                if (statsRow) {
+                    statsRow.innerHTML = stats.map((stat, idx) => `
+                        <div class="stat-grid-item" data-aos="fade-up" data-aos-delay="${idx * 100}">
+                            <div class="stat-grid-icon-box">
+                                <div class="bg-secondary" style="width: 36px; height: 36px; -webkit-mask: url('${getImageUrl('assets/images/' + stat.icon)}') center/contain no-repeat; mask: url('${getImageUrl('assets/images/' + stat.icon)}') center/contain no-repeat;"></div>
+                            </div>
+                            <div class="stat-grid-info">
+                                <div class="stat-grid-num-wrapper">
+                                    <span class="stat-number stat-grid-number" data-target="${stat.target}">0</span>
+                                    <span class="stat-grid-plus">${stat.suffix || ''}</span>
                                 </div>
+                                <span class="stat-grid-label">${stat.label}</span>
                             </div>
                         </div>
                     `).join('');
+                }
+            }
 
-                    const swiperEl = document.querySelector('.specialties-swiper');
-                    if (swiperEl && swiperEl.swiper) {
-                        swiperEl.swiper.update();
-                    }
+            // Facilities & Specialties Headers
+            const facTitle = document.querySelector('.facilities-title');
+            if (facTitle) facTitle.innerHTML = config.facilities_title || '';
+            const facSubtitle = document.querySelector('.facilities-subtitle');
+            if (facSubtitle) facSubtitle.innerHTML = config.facilities_subtitle || '';
+
+            const specTitle = document.querySelector('.specialties-section .ttl-h2');
+            if (specTitle) specTitle.innerHTML = config.specialties_title || '';
+            const specSubtitle = document.querySelector('.specialties-subtitle');
+            if (specSubtitle) specSubtitle.innerHTML = config.specialties_subtitle || '';
+
+            // Gallery Header
+            const galTitle = document.querySelector('.gallery-title');
+            if (galTitle) galTitle.innerHTML = config.gallery_title || '';
+            const galSubtitle = document.querySelector('.gallery-subtitle');
+            if (galSubtitle) galSubtitle.innerHTML = config.gallery_subtitle || '';
+
+            // Events Header
+            const evTitle = document.querySelector('.events-title');
+            if (evTitle) evTitle.innerHTML = config.events_title || '';
+            const evSubtitle = document.querySelector('.events-subtitle');
+            if (evSubtitle) evSubtitle.innerHTML = config.events_subtitle || '';
+
+            // Careers Header
+            const carTitle = document.querySelector('.careers-main-title');
+            if (carTitle) carTitle.innerHTML = config.careers_title || '';
+            const carDesc = document.querySelector('.careers-desc');
+            if (carDesc) carDesc.innerHTML = config.careers_description || '';
+
+            // Careers Benefits
+            let benefits = [];
+            try {
+                benefits = typeof config.careers_benefits === 'string' ? JSON.parse(config.careers_benefits) : config.careers_benefits;
+            } catch(e) {}
+            if (Array.isArray(benefits) && benefits.length > 0) {
+                const benefitsBox = document.querySelector('.careers-info-boxes');
+                if (benefitsBox) {
+                    benefitsBox.innerHTML = benefits.map((b, idx) => `
+                        <div class="careers-info-box d-flex align-items-center ${idx < benefits.length - 1 ? 'mb-4' : ''}">
+                            <div class="info-box-icon me-3 d-flex align-items-center justify-content-center">
+                                <i class="${b.icon_class} text-primary"></i>
+                            </div>
+                            <div>
+                                <span class="info-box-label text-muted d-block text-uppercase" style="font-size: 11px; letter-spacing: 0.5px;">${b.label}</span>
+                                <strong class="info-box-value text-slate-800" style="font-size: 15px;">${b.value}</strong>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            // Attractions Header
+            const attrTitle = document.querySelector('.attractions-section .ttl-h2');
+            if (attrTitle) attrTitle.innerHTML = config.attractions_title || '';
+            const attrSubtitle = document.querySelector('.attractions-subtitle');
+            if (attrSubtitle) attrSubtitle.innerHTML = config.attractions_subtitle || '';
+
+            // Reach Header
+            const reachTitle = document.querySelector('.reach-title');
+            if (reachTitle) reachTitle.innerHTML = config.reach_title || '';
+            const reachSubtitle = document.querySelector('.reach-subtitle');
+            if (reachSubtitle) reachSubtitle.innerHTML = config.reach_subtitle || '';
+
+            // Footer Section
+            const footerAbout = document.querySelector('.footer-about-text');
+            if (footerAbout) footerAbout.innerHTML = config.footer_about || '';
+            
+            const contactItems = document.querySelectorAll('.footer-contact-list li');
+            if (contactItems.length >= 3) {
+                contactItems[0].innerHTML = `<i class="fa-solid fa-location-dot contact-icon me-3 mt-1"></i><span class="contact-text">${config.footer_address || ''}</span>`;
+                contactItems[1].innerHTML = `<i class="fa-solid fa-calendar-check contact-icon me-3 mt-1"></i><span class="contact-text"><strong class="text-white d-block">Appointments:</strong><a href="tel:${config.footer_phone}" class="contact-link">${config.footer_phone || ''}</a></span>`;
+                contactItems[2].innerHTML = `<i class="fa-solid fa-envelope contact-icon me-3 mt-1"></i><span class="contact-text"><strong class="text-white d-block">Email Support:</strong><a href="mailto:${config.footer_email}" class="contact-link">${config.footer_email || ''}</a></span>`;
+            }
+
+            // Footer Social Links
+            const fbLink = document.querySelector('.footer-social-links a[href*="facebook"]');
+            if (fbLink) fbLink.href = config.footer_facebook || '#';
+            const igLink = document.querySelector('.footer-social-links a[href*="instagram"]');
+            if (igLink) igLink.href = config.footer_instagram || '#';
+            const twLink = document.querySelector('.footer-social-links a[href*="twitter"], .footer-social-links a .fa-x-twitter');
+            if (twLink) {
+                const anchor = twLink.tagName === 'A' ? twLink : twLink.closest('a');
+                if (anchor) anchor.href = config.footer_twitter || '#';
+            }
+            const liLink = document.querySelector('.footer-social-links a[href*="linkedin"], .footer-social-links a .fa-linkedin-in');
+            if (liLink) {
+                const anchor = liLink.tagName === 'A' ? liLink : liLink.closest('a');
+                if (anchor) anchor.href = config.footer_linkedin || '#';
+            }
+        }
+
+        // 2. Render Hero Banner
+        const activeHeroes = heroes.filter(h => h.is_active);
+        if (activeHeroes.length > 0) {
+            const wrapper = document.querySelector('#heroCarousel .carousel-inner');
+            if (wrapper) {
+                wrapper.innerHTML = activeHeroes.map((h, index) => `
+                    <div class="carousel-item ${index === 0 ? 'active' : ''}" style="background-image: url('${getImageUrl(h.image_url)}');">
+                        <div class="hero-overlay"></div>
+                        <div class="container h-100 position-relative">
+                            <div class="carousel-caption hero-caption">
+                                <h1 class="ttl-h1 hero-title mb-3">${h.title}</h1>
+                                <p class="hero-text">${h.subtitle || ''}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 3. Render Facilities swiper
+        if (facilities.length > 0) {
+            const wrapper = document.querySelector('.facilities-swiper .swiper-wrapper');
+            if (wrapper) {
+                wrapper.innerHTML = facilities.map(f => `
+                    <div class="swiper-slide">
+                        <div class="facility-card" style="background-image: url('${getImageUrl(f.image_url)}');">
+                            <div class="facility-content">
+                                <h4 class="facility-card-title ttl-h4">${f.title}</h4>
+                                <p class="facility-card-desc">${f.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                const swiperEl = document.querySelector('.facilities-swiper');
+                if (swiperEl && swiperEl.swiper) {
+                    swiperEl.swiper.update();
                 }
             }
         }
 
-        console.log("CMS dynamic data successfully loaded and applied.");
+        // 4. Render Specialties swiper
+        if (specialties.length > 0) {
+            const wrapper = document.querySelector('.specialties-swiper .swiper-wrapper');
+            if (wrapper) {
+                wrapper.innerHTML = specialties.map(s => `
+                    <div class="swiper-slide">
+                        <div class="bento-card h-100">
+                            <div class="bento-card-bg" style="background-image: url('${getImageUrl(s.image_url)}');"></div>
+                            <div class="bento-card-body">
+                                <h4 class="bento-card-title ttl-h4">${s.title}</h4>
+                                <p class="bento-card-text">${s.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                const swiperEl = document.querySelector('.specialties-swiper');
+                if (swiperEl && swiperEl.swiper) {
+                    swiperEl.swiper.update();
+                }
+            }
+        }
+
+        // 5. Render Events swiper
+        if (events.length > 0) {
+            const wrapper = document.querySelector('.events-swiper .swiper-wrapper');
+            if (wrapper) {
+                wrapper.innerHTML = events.map(e => `
+                    <div class="swiper-slide h-auto">
+                        <div class="event-card">
+                            <div class="event-card-img-wrapper">
+                                <span class="event-card-badge">${e.category}</span>
+                                <img loading="lazy" src="${getImageUrl(e.image_url)}" alt="${e.title}" class="event-card-img" />
+                            </div>
+                            <div class="event-card-body">
+                                <div class="event-card-meta">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>${e.event_date}</span>
+                                </div>
+                                <h4 class="event-card-title ttl-h4">${e.title}</h4>
+                                <p class="event-card-text">${e.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                const swiperEl = document.querySelector('.events-swiper');
+                if (swiperEl && swiperEl.swiper) {
+                    swiperEl.swiper.update();
+                }
+            }
+        }
+
+        // 6. Render Nearby Attractions swiper
+        if (attractions.length > 0) {
+            const wrapper = document.querySelector('.attractions-swiper .swiper-wrapper');
+            if (wrapper) {
+                wrapper.innerHTML = attractions.map(a => `
+                    <div class="swiper-slide h-auto">
+                        <div class="attraction-card">
+                            <div class="attraction-img-wrapper">
+                                <img loading="lazy" src="${getImageUrl(a.image_url)}" alt="${a.title}" class="attraction-img" />
+                            </div>
+                            <div class="attraction-card-body">
+                                <span class="attraction-tag">${a.tag}</span>
+                                <div class="d-flex justify-content-between align-items-center w-100">
+                                    <h4 class="attraction-title ttl-h4">${a.title}</h4>
+                                    <span class="attraction-distance"><i class="fa-solid fa-location-dot me-1"></i>${a.distance}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                const swiperEl = document.querySelector('.attractions-swiper');
+                if (swiperEl && swiperEl.swiper) {
+                    swiperEl.swiper.update();
+                }
+            }
+        }
+
+        // 7. Render Reach Modes
+        if (reachModes.length > 0) {
+            const wrapper = document.querySelector('.reach-section .row.g-4');
+            if (wrapper) {
+                const iconMap = {
+                    'Air': 'fa-solid fa-plane-departure',
+                    'Rail': 'fa-solid fa-train',
+                    'Road': 'fa-solid fa-bus',
+                    'Metro': 'fa-solid fa-train-subway'
+                };
+                wrapper.innerHTML = reachModes.map((r, idx) => `
+                    <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="${idx * 100}">
+                        <div class="reach-card h-100 p-4 rounded-4 shadow-sm bg-white border border-light text-center d-flex flex-column align-items-center">
+                            <div class="reach-card-icon mx-auto mb-3 d-flex align-items-center justify-content-center">
+                                <i class="${iconMap[r.mode] || 'fa-solid fa-route'}"></i>
+                            </div>
+                            <h5 class="reach-card-title ttl-h5 mb-2">${r.title || ''}</h5>
+                            <h6 class="reach-card-subtitle ttl-h6 mb-3 text-muted">${r.subtitle || ''}</h6>
+                            <p class="reach-card-desc text-muted mb-4">${r.description || ''}</p>
+                            <div class="reach-card-badge mt-auto d-inline-flex align-items-center">
+                                <i class="fa-solid fa-route me-1"></i>
+                                <span>${r.badge_info || ''}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 8. Render Dynamic Gallery
+        if (gallery.length > 0) {
+            initDynamicGallery(gallery);
+        }
+
+        // Re-run counter checker & animations
+        startCounters();
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+        }
         if (typeof lenis !== 'undefined') {
             lenis.resize();
         }
+
+        console.log("CMS dynamic data successfully loaded and pages rendered.");
     } catch (err) {
         console.error('Error loading CMS data:', err);
     }
 }
 
-// Call the CMS loading function
-loadCMSData();
+// Function to construct and handle gallery pagination/filtering
+function initDynamicGallery(items) {
+    const desktopGrid = document.querySelector('.gallery-desktop-grid');
+    const mobileSwiper = document.querySelector('.gallery-mobile-swiper');
+    
+    if (!desktopGrid || !mobileSwiper) return;
 
-// Initialize Gallery (Grid for Desktop, Swiper for Mobile)
-const galleryFilterBtns = document.querySelectorAll('.gallery-filters .filter-btn');
-const galleryDesktopGrid = document.querySelector('.gallery-desktop-grid');
-const galleryMobileSwiper = document.querySelector('.gallery-mobile-swiper');
+    const catMap = {
+        'infra': 'Infrastructure',
+        'tech': 'Medical Tech',
+        'rooms': 'Wards & Lobbies'
+    };
 
-if (galleryDesktopGrid && galleryMobileSwiper) {
-    const originalDesktopItems = Array.from(galleryDesktopGrid.querySelectorAll('.gallery-item'));
-    const originalMobileSlides = Array.from(galleryMobileSwiper.querySelectorAll('.swiper-slide'));
+    // 1. Construct original desktop items array
+    originalDesktopItems = items.map(item => {
+        const div = document.createElement('div');
+        div.className = 'gallery-item';
+        div.setAttribute('data-category', item.category);
+        div.innerHTML = `
+            <div class="gallery-card">
+                <div class="gallery-img-wrapper">
+                    <img loading="lazy" src="${getImageUrl(item.image_url)}" alt="${item.title}" class="gallery-img" />
+                    <div class="gallery-overlay">
+                        <div class="gallery-info text-center p-3">
+                            <span class="gallery-item-category">${catMap[item.category] || item.category}</span>
+                            <h4 class="gallery-item-title">${item.title}</h4>
+                            <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal" data-bs-target="#lightboxModal" data-src="${getImageUrl(item.image_url)}" data-title="${item.title}">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        return div;
+    });
 
-    let gallerySwiperInstance = null;
+    // 2. Construct original mobile slides array
+    originalMobileSlides = items.map(item => {
+        const div = document.createElement('div');
+        div.className = 'swiper-slide';
+        div.setAttribute('data-category', item.category);
+        div.innerHTML = `
+            <div class="gallery-card">
+                <div class="gallery-img-wrapper">
+                    <img loading="lazy" src="${getImageUrl(item.image_url)}" alt="${item.title}" class="gallery-img" />
+                    <div class="gallery-overlay">
+                        <div class="gallery-info text-center p-3">
+                            <span class="gallery-item-category">${catMap[item.category] || item.category}</span>
+                            <h4 class="gallery-item-title">${item.title}</h4>
+                            <button class="gallery-zoom-btn mt-3" data-bs-toggle="modal" data-bs-target="#lightboxModal" data-src="${getImageUrl(item.image_url)}" data-title="${item.title}">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        return div;
+    });
 
-    // Pagination settings for desktop grid
-    const itemsPerPage = 6;
-    let currentPage = 1;
+    // Set initial view on load
+    renderDesktopPage(1, originalDesktopItems);
+    initGalleryMobileSwiper();
+}
+
+function renderDesktopPage(page, items) {
+    const desktopGrid = document.querySelector('.gallery-desktop-grid');
     const paginationContainer = document.querySelector('.gallery-pagination-container');
+    if (!desktopGrid) return;
 
-    function renderDesktopPage(page, items) {
-        const start = (page - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const pageItems = items.slice(start, end);
-        galleryDesktopGrid.innerHTML = '';
-        pageItems.forEach(item => galleryDesktopGrid.appendChild(item));
-        currentPage = page;
-        renderDesktopPagination(items);
-    }
-
-    function renderDesktopPagination(items) {
-        if (!paginationContainer) return;
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageItems = items.slice(start, end);
+    desktopGrid.innerHTML = '';
+    pageItems.forEach(item => desktopGrid.appendChild(item));
+    currentPage = page;
+    
+    if (paginationContainer) {
         const totalPages = Math.ceil(items.length / itemsPerPage);
         paginationContainer.innerHTML = '';
-        for (let i = 1; i <= totalPages; i++) {
-            const btn = document.createElement('button');
-            btn.textContent = i;
-            btn.dataset.page = i;
-            btn.className = 'page-btn';
-            if (i === currentPage) btn.classList.add('active');
-            btn.addEventListener('click', () => renderDesktopPage(i, items));
-            paginationContainer.appendChild(btn);
+        if (totalPages > 1) {
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.dataset.page = i;
+                btn.className = 'page-btn';
+                if (i === currentPage) btn.classList.add('active');
+                btn.addEventListener('click', () => renderDesktopPage(i, items));
+                paginationContainer.appendChild(btn);
+            }
         }
     }
+}
 
-    // Initial render for desktop grid
-    renderDesktopPage(1, originalDesktopItems);
-
-    function initGalleryMobileSwiper() {
-        if (window.innerWidth < 992) {
-            if (!gallerySwiperInstance) {
-                gallerySwiperInstance = new Swiper('.gallery-mobile-swiper', {
-                    slidesPerView: 1.2,
-                    spaceBetween: 16,
-                    grabCursor: true,
-                    loop: false,
-                    touchReleaseOnEdges: true,
-                    observer: true,
-                    observeParents: true,
-                    pagination: {
-                        el: '.gallery-pagination',
-                        clickable: true,
+function initGalleryMobileSwiper() {
+    const swiperEl = document.querySelector('.gallery-mobile-swiper');
+    if (!swiperEl) return;
+    
+    if (window.innerWidth < 992) {
+        if (!gallerySwiperInstance) {
+            const swiperWrapper = swiperEl.querySelector('.swiper-wrapper');
+            if (swiperWrapper && swiperWrapper.children.length === 0) {
+                originalMobileSlides.forEach(slide => swiperWrapper.appendChild(slide));
+            }
+            gallerySwiperInstance = new Swiper('.gallery-mobile-swiper', {
+                slidesPerView: 1.2,
+                spaceBetween: 16,
+                grabCursor: true,
+                loop: false,
+                touchReleaseOnEdges: true,
+                observer: true,
+                observeParents: true,
+                pagination: {
+                    el: '.gallery-pagination',
+                    clickable: true,
+                },
+                breakpoints: {
+                    576: {
+                        slidesPerView: 1.5,
+                        spaceBetween: 20,
                     },
-                    breakpoints: {
-                        576: {
-                            slidesPerView: 1.5,
-                            spaceBetween: 20,
-                        },
-                        768: {
-                            slidesPerView: 2.2,
-                            spaceBetween: 24,
-                        }
+                    768: {
+                        slidesPerView: 2.2,
+                        spaceBetween: 24,
                     }
-                });
-            }
-        } else {
-            if (gallerySwiperInstance) {
-                gallerySwiperInstance.destroy(true, true);
-                gallerySwiperInstance = null;
-            }
+                }
+            });
+        }
+    } else {
+        if (gallerySwiperInstance) {
+            gallerySwiperInstance.destroy(true, true);
+            gallerySwiperInstance = null;
         }
     }
+}
 
-    // Initialize on load and adjust on resize
-    initGalleryMobileSwiper();
-    window.addEventListener('resize', initGalleryMobileSwiper);
+// Adjust mobile gallery Swiper on resize
+window.addEventListener('resize', initGalleryMobileSwiper);
 
-    if (galleryFilterBtns.length) {
-        galleryFilterBtns.forEach(button => {
-            button.addEventListener('click', () => {
-                // Toggle active class on buttons
-                galleryFilterBtns.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+// Initialize Filters
+const galleryFilterBtns = document.querySelectorAll('.gallery-filters .filter-btn');
+if (galleryFilterBtns.length) {
+    galleryFilterBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            galleryFilterBtns.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
 
-                const filterValue = button.getAttribute('data-filter');
+            const filterValue = button.getAttribute('data-filter');
+            const desktopGrid = document.querySelector('.gallery-desktop-grid');
+            const swiperWrapper = document.querySelector('.gallery-mobile-swiper .swiper-wrapper');
 
-                // Filter Desktop Grid
-                galleryDesktopGrid.style.opacity = '0';
+            // Filter Desktop Grid
+            if (desktopGrid) {
+                desktopGrid.style.opacity = '0';
                 setTimeout(() => {
                     const filteredDesktop = originalDesktopItems.filter(item => {
                         const category = item.getAttribute('data-category');
                         return filterValue === 'all' || category === filterValue;
                     });
                     renderDesktopPage(1, filteredDesktop);
-                    galleryDesktopGrid.style.opacity = '1';
-
-                    // Recalculate Lenis scroll dimensions
-                    if (typeof lenis !== 'undefined') {
-                        lenis.resize();
-                    }
+                    desktopGrid.style.opacity = '1';
+                    if (typeof lenis !== 'undefined') lenis.resize();
                 }, 200);
+            }
 
-                // Filter Mobile Swiper
-                const swiperWrapper = galleryMobileSwiper.querySelector('.swiper-wrapper');
-                if (swiperWrapper) {
-                    swiperWrapper.style.opacity = '0';
-                    setTimeout(() => {
-                        swiperWrapper.innerHTML = '';
-                        const matchingMobile = originalMobileSlides.filter(item => {
-                            const category = item.getAttribute('data-category');
-                            return filterValue === 'all' || category === filterValue;
-                        });
-                        matchingMobile.forEach(item => {
-                            swiperWrapper.appendChild(item);
-                        });
-                        swiperWrapper.style.opacity = '1';
-                        if (gallerySwiperInstance) {
-                            gallerySwiperInstance.update();
-                            gallerySwiperInstance.slideTo(0, 0);
-                        }
-
-                        // Recalculate Lenis scroll dimensions
-                        if (typeof lenis !== 'undefined') {
-                            lenis.resize();
-                        }
-                    }, 200);
-                }
-            });
+            // Filter Mobile Swiper
+            if (swiperWrapper) {
+                swiperWrapper.style.opacity = '0';
+                setTimeout(() => {
+                    swiperWrapper.innerHTML = '';
+                    const matchingMobile = originalMobileSlides.filter(item => {
+                        const category = item.getAttribute('data-category');
+                        return filterValue === 'all' || category === filterValue;
+                    });
+                    matchingMobile.forEach(item => swiperWrapper.appendChild(item));
+                    swiperWrapper.style.opacity = '1';
+                    if (gallerySwiperInstance) {
+                        gallerySwiperInstance.update();
+                        gallerySwiperInstance.slideTo(0, 0);
+                    }
+                    if (typeof lenis !== 'undefined') lenis.resize();
+                }, 200);
+            }
         });
-    }
+    });
 }
+
+// Call CMS Load on startup
+loadCMSData();
 
 // Lightbox Modal Dynamic Image Loading
 const lightboxModalEl = document.getElementById('lightboxModal');
