@@ -655,6 +655,39 @@ if (galleryDesktopGrid && galleryMobileSwiper) {
 
     let gallerySwiperInstance = null;
 
+    // Pagination settings for desktop grid
+    const itemsPerPage = 6;
+    let currentPage = 1;
+    const paginationContainer = document.querySelector('.gallery-pagination-container');
+
+    function renderDesktopPage(page, items) {
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageItems = items.slice(start, end);
+        galleryDesktopGrid.innerHTML = '';
+        pageItems.forEach(item => galleryDesktopGrid.appendChild(item));
+        currentPage = page;
+        renderDesktopPagination(items);
+    }
+
+    function renderDesktopPagination(items) {
+        if (!paginationContainer) return;
+        const totalPages = Math.ceil(items.length / itemsPerPage);
+        paginationContainer.innerHTML = '';
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = i;
+            btn.dataset.page = i;
+            btn.className = 'page-btn';
+            if (i === currentPage) btn.classList.add('active');
+            btn.addEventListener('click', () => renderDesktopPage(i, items));
+            paginationContainer.appendChild(btn);
+        }
+    }
+
+    // Initial render for desktop grid
+    renderDesktopPage(1, originalDesktopItems);
+
     function initGalleryMobileSwiper() {
         if (window.innerWidth < 992) {
             if (!gallerySwiperInstance) {
@@ -706,14 +739,11 @@ if (galleryDesktopGrid && galleryMobileSwiper) {
                 // Filter Desktop Grid
                 galleryDesktopGrid.style.opacity = '0';
                 setTimeout(() => {
-                    galleryDesktopGrid.innerHTML = '';
-                    const matchingDesktop = originalDesktopItems.filter(item => {
+                    const filteredDesktop = originalDesktopItems.filter(item => {
                         const category = item.getAttribute('data-category');
                         return filterValue === 'all' || category === filterValue;
                     });
-                    matchingDesktop.forEach(item => {
-                        galleryDesktopGrid.appendChild(item);
-                    });
+                    renderDesktopPage(1, filteredDesktop);
                     galleryDesktopGrid.style.opacity = '1';
 
                     // Recalculate Lenis scroll dimensions

@@ -3144,3 +3144,38 @@ header {
         }
     }
 }
+
+// ==========================================================================
+// Gallery Pagination Controls
+// ==========================================================================
+.gallery-pagination-container {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 32px;
+    
+    .page-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--glass-border);
+        background-color: var(--glass-bg);
+        color: var(--body);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        
+        &:hover {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        &.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+    }
+}
