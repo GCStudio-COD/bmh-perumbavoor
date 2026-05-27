@@ -496,9 +496,15 @@
                 <div class="content-card">
                     <div class="card-header-premium">
                         <h4 class="mb-0 text-white">Job Applications</h4>
-                        <button class="btn btn-outline-primary btn-sm" onclick="loadApplications()">
-                            <i class="fa-solid fa-rotate me-1"></i> Refresh List
-                        </button>
+                        <div class="d-flex align-items-center gap-2">
+                            <button class="btn btn-outline-info btn-sm" id="btnSortDate" onclick="toggleDateSort()">
+                                <i class="fa-solid fa-arrow-down-short-wide me-1"></i> Date: Newest First
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="loadApplications()">
+                                <i class="fa-solid fa-rotate me-1"></i> Refresh List
+                            </button>
+                            <button class="btn btn-outline-success btn-sm" onclick="downloadSelectedResumes()">Download Selected</button>
+                        </div>
                     </div>
                     <p class="text-secondary small mb-4">Review all candidate submissions received from the "Work With
                         Us" portals.</p>
@@ -507,6 +513,7 @@
                             style="border-radius: 8px; overflow: hidden;">
                             <thead>
                                 <tr class="text-secondary">
+                                    <th style="padding: 15px;"><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
                                     <th style="padding: 15px;">Candidate</th>
                                     <th style="padding: 15px;">Contact Info</th>
                                     <th style="padding: 15px;">Position & Experience</th>
@@ -602,9 +609,15 @@
     <!-- Media Select Overlay -->
     <div id="mediaSelectOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); z-index: 1100; overflow-y: auto; padding: 40px 15px;">
         <div class="container bg-dark border border-secondary rounded p-4 text-white" style="max-width: 900px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
                 <h5 class="mb-0 text-white"><i class="fa-solid fa-photo-film me-2"></i> Select Image from Media Library</h5>
-                <button type="button" class="btn-close btn-close-white" onclick="closeMediaSelectOverlay()"></button>
+                <div class="d-flex align-items-center gap-3">
+                    <input type="file" id="modal-upload-file" accept="image/*" class="d-none" onchange="uploadFromModal()">
+                    <button class="btn btn-primary btn-sm" type="button" onclick="document.getElementById('modal-upload-file').click()">
+                        <i class="fa-solid fa-cloud-arrow-up me-1"></i> Upload Image
+                    </button>
+                    <button type="button" class="btn-close btn-close-white m-0" onclick="closeMediaSelectOverlay()"></button>
+                </div>
             </div>
             <div id="mediaSelectGrid" class="row g-3" style="max-height: 60vh; overflow-y: auto; padding-right: 5px;">
                 <!-- Dynamic cards loaded via JS -->
@@ -1288,6 +1301,35 @@
             document.getElementById('mediaSelectOverlay').style.display = 'none';
         }
 
+        async function uploadFromModal() {
+            const fileInput = document.getElementById('modal-upload-file');
+            if (fileInput.files.length === 0) return;
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            showToast('Uploading image...');
+
+            try {
+                const res = await fetch('/api/admin/upload', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: formData
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    showToast('Image uploaded successfully and added to Media Library!');
+                    fileInput.value = ''; // Reset input
+                    // Refresh the overlay grid
+                    openMediaSelectOverlay();
+                } else {
+                    showToast(data.message || 'Upload failed.', true);
+                }
+            } catch (e) {
+                showToast('Upload failed due to network error.', true);
+            }
+        }
+
         function useMediaImage(url) {
             document.getElementById('form-image').value = url;
             document.getElementById('modalImgPreview').src = url;
@@ -1515,61 +1557,103 @@
         }
 
         // Applications Operations
+        let localApplications = [];
+        let dateSortOrder = 'desc'; // Default: newest first
+
         async function loadApplications() {
             const tbody = document.getElementById('applicationsListContainer');
             if (!tbody) return;
 
-            tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4"><i class="fa-solid fa-spinner fa-spin me-2"></i> Loading applications...</td></tr>';
+            const selectAllCheckbox = document.getElementById('selectAll');
+            if (selectAllCheckbox) selectAllCheckbox.checked = false;
+
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4"><i class="fa-solid fa-spinner fa-spin me-2"></i> Loading applications...</td></tr>';
 
             try {
                 const res = await fetch('/api/admin/applications', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (!res.ok) throw new Error('Failed to load applications');
-                const apps = await res.json();
+                localApplications = await res.json();
 
-                if (apps.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-secondary">No job applications submitted yet.</td></tr>';
-                    return;
-                }
-
-                tbody.innerHTML = apps.map(app => {
-                    const displayDate = new Date(app.created_at).toLocaleString();
-                    const resumeUrl = app.resume_url;
-
-                    return `
-                        <tr>
-                            <td style="padding: 15px;" class="fw-bold text-white">${app.full_name}</td>
-                            <td style="padding: 15px;">
-                                <div class="small text-slate-300"><i class="fa-solid fa-envelope me-1 text-primary"></i> ${app.email}</div>
-                                <div class="small text-slate-300 mt-1"><i class="fa-solid fa-phone me-1 text-success"></i> ${app.phone}</div>
-                            </td>
-                            <td style="padding: 15px;">
-                                <span class="badge bg-secondary mb-1" style="font-size: 12px;">${app.position}</span>
-                                <div class="small text-white">Experience: ${app.experience}</div>
-                            </td>
-                            <td style="padding: 15px;">
-                                <div style="max-height: 80px; overflow-y: auto; max-width: 250px; font-size: 13px;" class="text-secondary">
-                                    ${app.message ? app.message.replace(/\n/g, '<br>') : '<em>No message</em>'}
-                                </div>
-                            </td>
-                            <td style="padding: 15px;">
-                                <a href="${resumeUrl}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3">
-                                    <i class="fa-solid fa-file-pdf me-1"></i> View CV
-                                </a>
-                            </td>
-                            <td style="padding: 15px;" class="small text-white">${displayDate}</td>
-                            <td style="padding: 15px; text-align: center;">
-                                <button class="btn btn-sm btn-outline-danger rounded-circle" style="width: 32px; height: 32px; padding: 0;" onclick="deleteApplication(${app.id})" title="Delete Application">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-                }).join('');
+                sortApplications();
+                renderApplications();
             } catch (err) {
-                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> ${err.message || 'Error loading applications.'}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> ${err.message || 'Error loading applications.'}</td></tr>`;
             }
+        }
+
+        function sortApplications() {
+            localApplications.sort((a, b) => {
+                const dateA = new Date(a.created_at);
+                const dateB = new Date(b.created_at);
+                return dateSortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+            });
+        }
+
+        function renderApplications() {
+            const tbody = document.getElementById('applicationsListContainer');
+            if (!tbody) return;
+
+            if (localApplications.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-secondary">No job applications submitted yet.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = localApplications.map(app => {
+                const displayDate = new Date(app.created_at).toLocaleString();
+                const resumeUrl = app.resume_url;
+
+                return `
+                    <tr>
+                        <td style="padding: 15px;"><input type="checkbox" class="app-select" data-resume="${resumeUrl}"></td>
+                        <td style="padding: 15px;" class="fw-bold text-white">${app.full_name}</td>
+                        <td style="padding: 15px;">
+                            <div class="small text-slate-300"><i class="fa-solid fa-envelope me-1 text-primary"></i> ${app.email}</div>
+                            <div class="small text-slate-300 mt-1"><i class="fa-solid fa-phone me-1 text-success"></i> ${app.phone}</div>
+                        </td>
+                        <td style="padding: 15px;">
+                            <span class="badge bg-secondary mb-1" style="font-size: 12px;">${app.position}</span>
+                            <div class="small text-white">Experience: ${app.experience}</div>
+                        </td>
+                        <td style="padding: 15px;">
+                            <div style="max-height: 80px; overflow-y: auto; max-width: 250px; font-size: 13px;" class="text-secondary">
+                                ${app.message ? app.message.replace(/\n/g, '<br>') : '<em>No message</em>'}
+                            </div>
+                        </td>
+                        <td style="padding: 15px;">
+                            <a href="${resumeUrl}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                <i class="fa-solid fa-file-pdf me-1"></i> View CV
+                            </a>
+                        </td>
+                        <td style="padding: 15px;" class="small text-white">${displayDate}</td>
+                        <td style="padding: 15px; text-align: center;">
+                            <button class="btn btn-sm btn-outline-danger rounded-circle" style="width: 32px; height: 32px; padding: 0;" onclick="deleteApplication(${app.id})" title="Delete Application">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function toggleDateSort() {
+            dateSortOrder = dateSortOrder === 'desc' ? 'asc' : 'desc';
+
+            const sortBtn = document.getElementById('btnSortDate');
+            if (sortBtn) {
+                if (dateSortOrder === 'desc') {
+                    sortBtn.innerHTML = '<i class="fa-solid fa-arrow-down-short-wide me-1"></i> Date: Newest First';
+                    sortBtn.className = 'btn btn-outline-info btn-sm';
+                } else {
+                    sortBtn.innerHTML = '<i class="fa-solid fa-arrow-up-wide-short me-1"></i> Date: Oldest First';
+                    sortBtn.className = 'btn btn-info btn-sm text-dark';
+                }
+            }
+
+            sortApplications();
+            renderApplications();
+            showToast(`Sorted: ${dateSortOrder === 'desc' ? 'newest first' : 'oldest first'}`);
         }
 
         async function deleteApplication(id) {
@@ -1590,7 +1674,44 @@
                 showToast('Server connection failed.', true);
             }
         }
-    </script>
+
+        function toggleSelectAll(source) {
+            const checkboxes = document.querySelectorAll('.app-select');
+            checkboxes.forEach(cb => cb.checked = source.checked);
+        }
+
+        function getSelectedResumeUrls() {
+            const selected = document.querySelectorAll('.app-select:checked');
+            return Array.from(selected).map(cb => cb.getAttribute('data-resume'));
+        }
+
+        function downloadSelectedResumes() {
+            const selectedUrls = getSelectedResumeUrls();
+            const urlsToDownload = selectedUrls.length > 0 
+                ? selectedUrls 
+                : Array.from(document.querySelectorAll('.app-select')).map(cb => cb.getAttribute('data-resume'));
+
+            if (urlsToDownload.length === 0) {
+                showToast('No applications/resumes to download.', true);
+                return;
+            }
+
+            showToast(`Downloading ${urlsToDownload.length} resume(s)...`);
+
+            urlsToDownload.forEach((url, index) => {
+                if (!url) return;
+                setTimeout(() => {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.target = '_blank';
+                    a.download = '';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }, index * 250);
+            });
+        }
+</script>
 </body>
 
 </html>
